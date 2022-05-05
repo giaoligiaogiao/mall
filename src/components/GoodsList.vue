@@ -71,7 +71,18 @@
         </div>
       </div>
       <div class="goods-page">
-        <Page :total="100" ></Page>
+      <el-pagination
+        :page-count="page.pages"
+        :hide-on-single-page="false"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page.pageNum"
+        :page-sizes="page.pageSizes"
+        :page-size="page.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="page.total"
+      >
+      </el-pagination>
       </div>
     </div>
     <Spin size="large" fix v-if="isLoading"></Spin>
@@ -99,7 +110,15 @@ export default {
         {title: '综合', en: 'sale'},
         {title: '评论数', en: 'remarks'},
         {title: '价格', en: 'price'}
-      ]
+      ],
+      //分页字段
+      page: {
+        pages: 5,
+        total: 0,
+        pageSizes: [5, 7, 10],
+        pageSize: 7,
+        pageNum: 1,
+      },
     };
   },
   computed: {
@@ -116,6 +135,21 @@ export default {
       this.isAction[index] = true;
       this.icon[index] = 'arrow-up-a';
       this.SET_GOODS_ORDER_BY(data);
+    },
+    //分页方法不用管
+    handleSizeChange(val) {
+      this.page.pageSize = val;
+      this.getData()
+    },
+    //分页方法不用管
+    handleCurrentChange(val) {
+      this.page.pageNum = val;
+      this.getData()
+    },
+    getData(){
+      //你的接口
+      let res=[]//你返回的数据
+      this.page.total=res.length
     }
   },
   mounted () {
