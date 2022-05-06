@@ -89,7 +89,7 @@
         </li>
         <li><router-link to="/">网站导航</router-link></li>
         <li><router-link to="/freeback">意见反馈</router-link></li>
-        <li><router-link to="/login2">意见反馈</router-link></li>
+        <li><router-link to="/login2">后台登录</router-link></li>
       </ul>
     </div>
   </div>
