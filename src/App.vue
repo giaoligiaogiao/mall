@@ -21,7 +21,7 @@ export default {
   data () {
     return {
       excludeRoutes: ['HomeIndex', 'MyAddress', 'AddAddress', 'MyOrder', 'MyShoppingCart'],
-      list:['Login2']
+      list:['Login2','Index2','goods']
     };
   },
   components: {
