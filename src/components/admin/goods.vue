@@ -94,13 +94,15 @@ export default {
       fileList: [],
       num: 0,
       list: [],
-      tableData: [   {
-            img: 'static/img/goodsDetail/intro/1.jpg',
-            price: 39.9,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-            num: 3140,
-            sale: 9000
-          },],
+      tableData: [
+        {
+          img: "static/img/goodsDetail/intro/1.jpg",
+          price: 39.9,
+          intro: "SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬",
+          num: 3140,
+          sale: 9000,
+        },
+      ],
       page: {
         pages: 5,
         total: 0,
@@ -111,14 +113,14 @@ export default {
       dialogVisible: false,
       title: "",
       form: {
-        num:'',
-        inrto:'',
+        num: "",
+        inrto: "",
       },
       formInline: {
         name: "",
         type: "",
       },
-     
+
       rules: {
         file: [
           {
@@ -160,12 +162,24 @@ export default {
     //   ACTION_RESETPASSWORD,
     // ]),
     getData() {
-      let params = {
-        pageSize: this.page.pageSize,
-        pageNum: this.page.pageNum,
-        keyword: this.formInline.name,
-        type: this.formInline.type,
-      };
+      axios({
+        method: "get",
+        url: "http://localhost:8081/goods",
+        params: {
+          pageSize: this.page.pageSize,
+          pageNum: this.page.pageNum,
+        },
+      }).then((res) => {
+        this.page.total = res.data.total;
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const data = {
+              goodsList: res.data.list,
+            };
+            this.SET_GOODS(data);
+          });
+        });
+      });
 
       // this.ACTION_GETUSERLIST(params).then((res) => {
       //   if (this.tableData) this.tableData = [];
@@ -208,7 +222,6 @@ export default {
       if (formName == "form") this.dialogVisible = false;
       this.$refs[formName].resetFields();
     },
-
   },
 };
 </script>
