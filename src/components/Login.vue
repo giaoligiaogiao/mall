@@ -23,7 +23,7 @@
                   </i-input>
               </FormItem>
               <FormItem>
-                  <Button type="error" size="large" @click="handleSubmit('formInline')" long>登录</Button>
+                  <Button type="error" size="large" @click="handleSubmit('')" long>登录</Button>
               </FormItem>
           </Form>
           </div>

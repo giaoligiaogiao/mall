@@ -5,7 +5,7 @@
             <div class="box">
                 <el-input style="width:80%;margin:20px" v-model="account" placeholder="用户名" clearable="true"></el-input>
                 <el-input style="width:80%;margin-bottom:20px" v-model="password" placeholder="密码" :show-password='true'></el-input>
-                <el-button style="width:80%" type="primary"  >登录</el-button>
+                <el-button style="width:80%" type="primary"   @click="handleSubmit('formInline')">登录</el-button>
             </div>
       </div>
 
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+// import handleSubmit() from '@/components/Login'
 export default {
 data(){
     return{

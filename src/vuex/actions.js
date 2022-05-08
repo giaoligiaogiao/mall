@@ -423,27 +423,31 @@ export const loadGoodsList = ({ commit }) => {
   axios({
     method: 'get',
     url: 'http://localhost:8081/goods',
+
   })
-    .then((res)=>{
+    .then((res) => {
       console.log(res)
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-        const data={goodsList:res.data,asItems:[
-                    {
-            img: 'static/img/goodsList/item-as-.jpg',
-            price: 39.9,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-            num: 3140,
-            sale: 9000
-          },
-        ]}
-        commit('SET_GOODS_LIST', data);
-        commit('SET_LOAD_STATUS', false);
-      });
+          const data = {
+            goodsList: res.data,
+            asItems: [
+              {
+                img: 'static/img/goodsList/item-as-.jpg',
+                price: 39.9,
+                intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
+                num: 3140,
+                sale: 9000
+              },
+            ]
+          }
+          commit('SET_GOODS_LIST', data);
+          commit('SET_LOAD_STATUS', false);
+        });
 
-   });
+      });
     });
-  };
+};
 
 // 添加购物车
 export const addShoppingCart = ({ commit }, data) => {
@@ -578,21 +582,27 @@ export const login = ({ commit }, data) => {
       resolve(true);
       return true;
     }
-    const userArr = localStorage.getItem('users');
-    console.log(userArr);
-    if (userArr) {
-      const users = JSON.parse(userArr);
-      for (const item of users) {
-        if (item.username === data.username) {
-          localStorage.setItem('loginInfo', JSON.stringify(item));
-          commit('SET_USER_LOGIN_INFO', item);
-          resolve(true);
-          break;
-        }
-      }
-    } else {
-      resolve(false);
-    }
+    // const userArr = localStorage.getItem('users');
+    // console.log(userArr);
+    // if (userArr) {
+    //   const users = JSON.parse(userArr);
+    //   for (const item of users) {
+    //     if (item.username === data.username) {
+    //       localStorage.setItem('loginInfo', JSON.stringify(item));
+    //       commit('SET_USER_LOGIN_INFO', item);
+    //       resolve(true);
+    //       break;
+    //     }
+    //   }
+    // } else {
+    //   resolve(false);
+    // }
+    axios({
+      method: 'get',
+      url: 'http://localhost:8081/test',
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+    })
   });
 };
 
