@@ -70,7 +70,7 @@
                 <span>
                   <Icon type="social-yen text-danger"></Icon>
                   <span class="seckill-price text-danger">{{
-                    item.price
+                    item.price.toFixed(2)
                   }}</span>
                 </span>
               </div>

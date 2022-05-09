@@ -540,12 +540,12 @@ export const loadAddress = ({ commit }) => {
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [{
-      goods_id: 1529931938150,
-      count: 1,
-      img: 'static/img/goodsDetail/pack/1.jpg',
-      package: '4.7英寸-深邃蓝',
-      price: 28,
-      title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
+      // goods_id: 1529931938150,
+      // count: 1,
+      // img: 'static/img/goodsDetail/pack/1.jpg',
+      // package: '4.7英寸-深邃蓝',
+      // price: 28,
+      // title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
     }];
     commit('SET_SHOPPING_CART', data);
   });
@@ -554,16 +554,9 @@ export const loadShoppingCart = ({ commit }) => {
 // 添加注册用户
 export const addSignUpUser = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
-    // const userArr = localStorage.getItem('users');
-    // let users = [];
-    // if (userArr) {
-    //   users = JSON.parse(userArr);
-    // }
-    // users.push(data);
-    // localStorage.setItem('users', JSON.stringify(users));
     axios({
       method: 'post',
-      url: 'http://localhost:8081/test',
+      url: 'http://localhost:8081/users/signup',
       data: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json;charset=UTF-8' }
     })
@@ -576,12 +569,28 @@ export const addSignUpUser = ({ commit }, data) => {
 // 用户登录
 export const login = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
-    if (data.username === 'Gavin' && data.password === '123456') {
-      localStorage.setItem('loginInfo', JSON.stringify(data));
-      commit('SET_USER_LOGIN_INFO', data);
-      resolve(true);
-      return true;
-    }
+    axios({
+      method: 'post',
+      url: 'http://localhost:8081/users/login',
+      data: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+    })
+      .then((res) => {
+        // console.log(res.data)
+        if (res.data == 1) {
+          localStorage.setItem('loginInfo', JSON.stringify(data));
+          commit('SET_USER_LOGIN_INFO', data);
+          resolve(true);
+          return true
+        }
+        else {
+          resolve(false);
+          return false
+        }
+      })
+
+
+
     // const userArr = localStorage.getItem('users');
     // console.log(userArr);
     // if (userArr) {
@@ -597,12 +606,13 @@ export const login = ({ commit }, data) => {
     // } else {
     //   resolve(false);
     // }
-    axios({
-      method: 'get',
-      url: 'http://localhost:8081/test',
-      data: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' }
-    })
+    // axios({
+    //   method: 'post',
+    //   url: 'http://localhost:8081/users/login',
+    //   data: JSON.stringify(data),
+    //   headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+    // })
+
   });
 };
 

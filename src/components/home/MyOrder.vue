@@ -14,7 +14,6 @@ export default {
     return {
       order: [{
         order_id: 1529931938150,
-        goods_id: 1529931938150,
         count: 1,
         img: 'static/img/goodsDetail/pack/1.jpg',
         package: '4.7英寸-深邃蓝',
@@ -45,13 +44,14 @@ export default {
           align: 'center'
         },
         {
-          title: '标题',
+          title: '详情',
+          width:200,
           key: 'title',
           align: 'center'
         },
         {
-          title: '套餐',
-          width: 198,
+          title: '款式',
+          width: 50,
           key: 'package',
           align: 'center'
         },
