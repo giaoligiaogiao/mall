@@ -27,8 +27,8 @@
           <img :src="scope.row.img" alt="" style="width:80%">
         </template>
       </el-table-column>
-      <el-table-column prop="num" label="数量"> </el-table-column>
-
+      <el-table-column prop="sale" label="销量"> </el-table-column>
+      <el-table-column prop="remarks" label="评论"> </el-table-column>
       <el-table-column prop="intro" label="介绍"> </el-table-column>
 
       <el-table-column label="价格" prop="price"> </el-table-column>
@@ -79,22 +79,14 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
   data() {
     return {
       fileList: [],
       num: 0,
       list: [],
-      tableData: [
-        {
-          img: "static/img/goodsDetail/intro/1.jpg",
-          price: 39.9,
-          intro: "SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬",
-          num: 3140,
-          sale: 9000,
-        },
-      ],
+      tableData: [],
       page: {
         pages: 5,
         total: 0,
@@ -154,15 +146,9 @@ export default {
           pageNum: this.page.pageNum,
         },
       }).then((res) => {
+        console.log(res)
+        this.tableData=res.data.list
         this.page.total = res.data.total;
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            const data = {
-              goodsList: res.data.list,
-            };
-            this.SET_GOODS(data);
-          });
-        });
       });
 
     },
