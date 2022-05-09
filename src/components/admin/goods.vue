@@ -35,7 +35,10 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="resetPassword(scope.$index, scope.row)"
-            >操作</el-button
+            >修改</el-button
+          >
+          <el-button size="mini" @click="resetPassword(scope.$index, scope.row)"
+            >删除</el-button
           >
         </template>
       </el-table-column>
