@@ -79,15 +79,7 @@
 </template>
 
 <script>
-// import { mapActions, mapState } from "vuex";
-// import {
-//   ACTION_GETUSERLIST,
-//   ACTION_GETDORMITORYLIST,
-//   ACTION_ADDSTUDENT,
-//   ACTION_ADDMANAGER,
-//   ACTION_DELETEUSER,
-//   ACTION_RESETPASSWORD,
-// } from "@/store/action/action-types";
+
 export default {
   data() {
     return {
@@ -145,20 +137,12 @@ export default {
     };
   },
   computed: {
-    // ...mapState(["dormitory"]),
   },
   created() {
     this.getData();
   },
   methods: {
-    // ...mapActions([
-    //   ACTION_GETUSERLIST,
-    //   ACTION_GETDORMITORYLIST,
-    //   ACTION_ADDSTUDENT,
-    //   ACTION_ADDMANAGER,
-    //   ACTION_DELETEUSER,
-    //   ACTION_RESETPASSWORD,
-    // ]),
+
     getData() {
       let params = {
         pageSize: this.page.pageSize,
@@ -167,27 +151,12 @@ export default {
         type: this.formInline.type,
       };
 
-      // this.ACTION_GETUSERLIST(params).then((res) => {
-      //   if (this.tableData) this.tableData = [];
-      //   res.list.forEach((item) => {
-      //     if (item.userType == 0) {
-      //       item.userType = "学生";
-      //     } else if (item.userType == 1) {
-      //       item.userType = "宿舍管理员";
-      //     } else {
-      //       item.userType = "系统管理员";
-      //     }
-      //     this.tableData.push(item);
-      //   });
-      //   this.page.total = res.total;
-      // });
     },
     resetPassword(index, row) {
       console.log(index, row);
       let params = {
         account: row.account,
       };
-      // this.ACTION_RESETPASSWORD(params);
     },
     handleSizeChange(val) {
       this.page.pageSize = val;

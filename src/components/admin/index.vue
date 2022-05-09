@@ -11,10 +11,6 @@
           <a-icon type="user" />
           <span>用户管理</span>
         </a-menu-item>
-        <a-menu-item key="3" @click="ToRouter('room', '3')">
-          <a-icon type="home" />
-          <span>房间管理</span>
-        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -29,7 +25,7 @@
             admin<a-icon type="down" />
           </a>
           <a-menu slot="overlay">
-            <a-menu-item key="0" @click="ToRouter('login', 1)">
+            <a-menu-item key="0" @click="ToRouter('login2', 1)">
               退出登录
             </a-menu-item>
             <a-menu-item key="1" @click="changePassword">修改密码</a-menu-item>
