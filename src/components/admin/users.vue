@@ -10,7 +10,7 @@
         :show-file-list="false"
   
       >
-        <el-button type="primary" icon="el-icon-edit">导入楼栋</el-button>
+        <el-button type="primary" icon="el-icon-edit">添加用户</el-button>
       </el-upload>
       <el-form
         :inline="true"

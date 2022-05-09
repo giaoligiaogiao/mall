@@ -32,7 +32,7 @@
             <a-menu-item key="0" @click="ToRouter('login', 1)">
               退出登录
             </a-menu-item>
-            <a-menu-item key="1" @click="changePassword">修改密码</a-menu-item>
+            <a-menu-item key="1" @click="changePassword">修改账户</a-menu-item>
           </a-menu>
         </a-dropdown>
       </a-layout-header>
@@ -45,7 +45,7 @@
       >
         <router-view></router-view>
       </a-layout-content>
-      <el-dialog title="修改密码" width="500px" :visible.sync="dialogVisible">
+      <el-dialog title="修改账户" width="500px" :visible.sync="dialogVisible">
         <el-form :model="form" ref="form" :rules="rules">
           <el-form-item label="账户" label-width="100px" prop="account">
             <el-input
