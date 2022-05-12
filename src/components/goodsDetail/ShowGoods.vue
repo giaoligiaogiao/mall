@@ -75,7 +75,7 @@
             <p>白条分期</p>
           </div>
           <div class="item-select-row">
-            <div class="item-select-class" v-for="(item,index) in hirePurchase" :key="index">
+            <div class="item-select-class" v-for="(item,index) in hirePurchase" :key="index" @click="selectPrice(item,index)" :class="[priceIndex === index ? 'active':'']">
               <Tooltip :content="item.tooltip" placement="top-start">
                 <span>{{item.type}}</span>
               </Tooltip>
@@ -103,8 +103,9 @@ export default {
     return {
       price: 0,
       count: 1,
-      selectBoxIndex: 0,
-      imgIndex: 0
+      selectBoxIndex: 0,//分期index
+      imgIndex: 0,
+      priceIndex:0
     };
   },
   computed: {
@@ -143,6 +144,10 @@ export default {
     select (index1, index2) {
       this.selectBoxIndex = index1 * 3 + index2;
       this.price = this.goodsInfo.setMeal[index1][index2].price;
+    },
+    //选择分期
+    selectPrice(item,index){
+      this.priceIndex=index
     },
     showBigImg (index) {
       this.imgIndex = index;
@@ -342,6 +347,9 @@ export default {
 }
 .add-buy-car {
   margin-top: 15px;
+}
+.active{
+  border: 0.5px solid #e3393c;
 }
 /******************商品图片及购买详情结束******************/
 </style>
