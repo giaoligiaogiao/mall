@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div v-if="list.indexOf($route.name)==-1">
-       <Header></Header>
-    <router-view/>
-    <!-- 部分路由不应该包含这个Footer -->
-    <Footer v-if="excludeRoutes.indexOf($route.name) == -1"></Footer>
+      <Header></Header>
+      <router-view/>
+      <!-- 部分路由不应该包含这个Footer -->
+      <Footer v-if="excludeRoutes.indexOf($route.name) == -1"></Footer>
     </div>
     <div v-else style="height:100%">
       <router-view />
