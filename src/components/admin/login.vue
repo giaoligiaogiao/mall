@@ -5,14 +5,14 @@
             <div class="box" >
                 <Form ref="formInline" :model="formDate" :rules="ruleInline">
               <FormItem prop="username">
-                <el-input style="width:80%;margin:20px" v-model="formDate.username" placeholder="用户名" ></el-input>
+                <el-input style="width:100%;margin:20px 0" v-model="formDate.username" placeholder="用户名" ></el-input>
                  
               </FormItem>
                <FormItem prop="password">
-                <el-input style="width:80%;margin-bottom:20px" v-model="formDate.password" placeholder="密码" :show-password='true'></el-input>
+                <el-input style="width:100%;margin-bottom:20px" v-model="formDate.password" placeholder="密码" :show-password='true'></el-input>
                 </FormItem>
                 <FormItem>
-                <el-button style="width:80%" type="primary"   @click="handleSubmit('formInline')">登录</el-button>
+                <el-button style="width:100%" type="primary"   @click="handleSubmit('formInline')">登录</el-button>
                 </FormItem>
                 </Form>
             </div>
@@ -91,7 +91,6 @@ export default {
 .box{
     border-radius: 10px;
     width: 100%;
-    height: 200px;
     background: white;
     display: flex;
     flex-direction: column;
