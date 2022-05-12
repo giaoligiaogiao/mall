@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
+const Order2 = resolve => require(['@/components/admin/order'], resolve);
 const Index2 = resolve => require(['@/components/admin/index'], resolve);
 const Login2 = resolve => require(['@/components/admin/login'], resolve);
 const Login = resolve => require(['@/components/Login'], resolve);
@@ -144,6 +145,12 @@ export default new Router({
           path:'/goods',
           name:'goods',
           component:()=>import('@/components/admin/goods')
+  
+        },
+        {
+          path:'/order2',
+          name:'order2',
+          component:()=>import('@/components/admin/order')
   
         },
         {

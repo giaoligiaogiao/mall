@@ -11,9 +11,9 @@
           <a-icon type="user" />
           <span>用户管理</span>
         </a-menu-item>
-        <a-menu-item key="3" @click="ToRouter('room', '3')">
+        <a-menu-item key="3" @click="ToRouter('order2', '3')">
           <a-icon type="home" />
-          <span>房间管理</span>
+          <span>订单管理</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

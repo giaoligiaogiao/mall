@@ -18,22 +18,11 @@
         class="demo-form-inline"
         style="margin-left: 20px"
       >
-        <el-form-item label="楼栋">
+        <el-form-item label="查询用户">
           <el-input
-            v-model="formInline.dormitory"
-            placeholder="楼号"
+            v-model="formInline.users"
+            placeholder="账号"
           ></el-input>
-        </el-form-item>
-        <el-form-item label="类型">
-          <el-select v-model="formInline.type" placeholder="类型">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="page.pageNum=1;search()">查询</el-button>
@@ -41,28 +30,24 @@
       </el-form>
     </div>
     <el-table
-      :data="dormitory"
+      :data="users"
       style="width: 100%"
-      :default-sort="{ prop: 'dormitory', order: 'ascending' }"
+      :default-sort="{ prop: 'users', order: 'ascending' }"
       class="table"
     >
-      <el-table-column prop="dormitory" label="楼栋" sortable>
+      <el-table-column prop="users" label="" sortable>
       </el-table-column>
 
-      <el-table-column prop="name" label="楼名"> </el-table-column>
-      <el-table-column label="类型">
-        <template slot-scope="scope">
-          <p v-if="scope.row.sex == 0">女寝</p>
-          <p v-else>男寝</p>
-        </template>
-      </el-table-column>
-      <el-table-column label="管理员" prop="account"> </el-table-column>
-      <el-table-column prop="managerName" label="管理员名"> </el-table-column>
+      <el-table-column prop="username" label="用户"> </el-table-column>
+      <el-table-column prop="password" label="密码"> </el-table-column>
+      <el-table-column prop="mail" label="邮箱"></el-table-column>
+      <el-table-column prop="phone" label="电话"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="edit(scope.row)"
-            >编辑</el-button
-          >
+            >修改</el-button>
+                    <el-button size="mini" type="primary" 
+            >删除</el-button> 
         </template>
       </el-table-column>
     </el-table>
@@ -89,7 +74,7 @@
     >
       <el-form :model="form" ref="form" :rules="rules" size="small">
         <el-form-item label="楼号" label-width="80px">
-          <el-input v-model="form.dormitory" disabled></el-input>
+          <el-input v-model="form.users" disabled></el-input>
         </el-form-item>
 
         <el-form-item label="楼栋类型" label-width="80px" prop="sex">
@@ -125,21 +110,21 @@ import axios from 'axios';
 import { mapActions, mapState } from "vuex";
 // import {
 //   ACTION_GETMANAGERLIST,
-//   ACTION_GETDORMITORYLIST,
-//   ACTION_EDITDORMITORY,
-//   ACTION_ADDDORMITORYLIST,
+//   ACTION_GETusersLIST,
+//   ACTION_EDITusers,
+//   ACTION_ADDusersLIST,
 // } from "@/store/action/action-types";
 export default {
   data() {
     return {
       fileList: [],
-      dormitory:[],
+      users:[],
       searchLoading: false,
       list: [],
       visible: false,
       page: {
         pages: 5,
-        pageSizes: [5, 7, 10],
+        pageSizes: 10,
         pageSize: 7,
         pageNum: 1,
         total: 0,
@@ -162,7 +147,7 @@ export default {
         ],
       },
       formInline: {
-        dormitory: "",
+        users: "",
         type: "",
       },
       managers: [],
@@ -184,7 +169,7 @@ export default {
     };
   },
   computed: {
-    // ...mapState(["dormitory"]),
+    // ...mapState(["users"]),
   },
   created() {
     this.getData();
@@ -198,21 +183,19 @@ export default {
       let params = {
         pageSize: this.page.pageSize,
         pageNum: this.page.pageNum,
-        keyword: this.formInline.dormitory,
-        sex: this.formInline.type,
       };
     axios({
     method: 'get',
-    url: 'http://localhost:8081/goods',
+    url: 'http://localhost:8081/users',
   })
     .then((res)=>{
       console.log(res)
-      this.dormitory=res.data
+      this.users=res.data
       
       });
 
  
-      // this.ACTION_GETDORMITORYLIST(params).then((res) => {
+      // this.ACTION_GETusersLIST(params).then((res) => {
       //   this.page.total = res.total;
       //   console.log(res);
       // });
@@ -244,23 +227,23 @@ export default {
           if (this.form.account.label) {
             console.log(this.form.account);
             let params = {
-              dormitory: this.form.dormitory,
+              users: this.form.users,
               name: this.form.name,
               account: this.form.account.label,
               managerName: this.form.account.name,
             };
-            // this.ACTION_EDITDORMITORY(params).then(() => {
+            // this.ACTION_EDITusers(params).then(() => {
             //   this.getData();
             //   this.visible = false;
             // });
           } else {
             let params = {
-              dormitory: this.form.dormitory,
+              users: this.form.users,
               name: this.form.name,
               account: this.form.account,
               managerName: this.form.managerName,
             };
-            // this.ACTION_EDITDORMITORY(params).then(() => {
+            // this.ACTION_EDITusers(params).then(() => {
             //   this.getData();
             //   this.visible = false;
             // });
@@ -304,7 +287,7 @@ export default {
     //   list.forEach((item) => {
     //     let obj = {};
     //     if (item) {
-    //       obj.dormitory = item.楼号;
+    //       obj.users = item.楼号;
     //       obj.name = item.楼栋;
     //       obj.floor = item.楼层;
     //       if (item.男女寝 == "男") obj.sex = 1;
@@ -313,7 +296,7 @@ export default {
     //     }
     //   });
     //   list = x;
-    //   this.ACTION_ADDDORMITORYLIST(list).then(this.getData());
+    //   this.ACTION_ADDusersLIST(list).then(this.getData());
     // },
   //   handleChange(file, fileList) {
   //     console.log(file.raw.type);

@@ -2,18 +2,12 @@
   <div>
     <div class="top-box">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item>
-          <el-button type="primary" icon="el-icon-edit" @click="addUser"
-            >添加商品</el-button
-          >
-        </el-form-item>
         <el-form-item label="搜索">
           <el-input
-            v-model="formInline.intro"
+            v-model="formInline.name"
             placeholder="搜索条件"
           ></el-input>
         </el-form-item>
-        <el-form-item>
           <el-button type="primary" @click="page.pageNum=1;getData()">查询</el-button>
         </el-form-item>
       </el-form>
@@ -91,11 +85,10 @@ export default {
       num: 0,
       list: [],
       tableData: [],
-      searchData:[],
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5,7,10],
+        pageSizes: [5, 7, 10],
         pageSize: 7,
         pageNum: 1,
       },
@@ -106,7 +99,7 @@ export default {
         inrto: "",
       },
       formInline: {
-        intro: "",
+        name: "",
         type: "",
       },
 
@@ -149,14 +142,25 @@ export default {
         params: {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum,
-          search:this.formInline.intro,
+          
         },
       }).then((res) => {
         console.log(res)
-        this.tableData=res.data.list,
+        this.tableData=res.data.list
         this.page.total = res.data.total;
       });
-    
+    axios({
+        method: "get",
+        url: "http://localhost:8081/goods",
+        params: {
+          pageSize: this.page.pageSize,
+          pageNum: this.page.pageNum,
+        },
+      }).then((res) => {
+        console.log(res)
+        this.tableData=res.data.list
+        this.page.total = res.data.total;
+      });
     },
     resetPassword(index, row) {
       console.log(index, row);
