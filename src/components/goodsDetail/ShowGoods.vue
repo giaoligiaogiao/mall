@@ -106,7 +106,7 @@ export default {
       selectBoxIndex: 0,//分期index
       imgIndex: 0,
       priceIndex:0,
-      cartPrice:0,
+      cartPrice:28,
       time:0,
     };
   },
@@ -163,6 +163,7 @@ export default {
     selectPrice(item,index){
       this.priceIndex=index
       this.cartPrice = item.price
+      console.log(this.cartPrice)
       this.time=item.time
     },
     showBigImg (index) {

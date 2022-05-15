@@ -135,7 +135,7 @@ export default {
     this.loadCarouselItems();
     this.loadComputer();
     this.loadEat();
-    // this.loadShoppingCart();
+    this.loadShoppingCart();
   },
   mounted () {
     const father = this;

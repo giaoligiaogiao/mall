@@ -61,9 +61,9 @@ export default {
       ]
     };
   },
-  created () {
-    this.loadShoppingCart();
-  },
+  // created () {
+  //   this.loadShoppingCart();
+  // },
   computed: {
     ...mapState(['shoppingCart'])
   },

@@ -13,7 +13,7 @@
         <div class="pay-qr-scan">
           <img src="static/img/pay/pay-qrscan.png">
           <div class="pay-tips">
-            <router-link to="/payDone"><p>点击我, 完成支付</p></router-link>
+            <router-link to="/payDone" ><p>点击我, 完成支付</p></router-link>
           </div>
         </div>
       </div>
