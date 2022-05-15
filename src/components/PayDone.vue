@@ -8,8 +8,15 @@
 
 <script>
 export default {
-  name: 'PayDone'
+  name: 'PayDone',
+   mounted () {
+    const father = this;
+    setTimeout(() => {
+     this.$router.push('/');
+    }, 3000);
+  },
 };
+
 </script>
 
 <style scoped>

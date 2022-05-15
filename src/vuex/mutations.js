@@ -74,7 +74,7 @@ export const ADD_SHOPPING_CART = (state, data) => {
     count: data.count,
     img: data.package.img,
     package: data.package.intro,
-    price: data.package.price,
+    price: data.price,
     title: data.title
   };
   state.shoppingCart.push(item);
