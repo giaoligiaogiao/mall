@@ -536,7 +536,8 @@ export const loadAddress = ({ commit }) => {
     commit('SET_USER_ADDRESS', address);
   });
 };
-
+export const qwe=({commit})=> {console.log(123)
+};
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [

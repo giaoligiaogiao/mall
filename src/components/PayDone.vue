@@ -1,22 +1,34 @@
 <template>
   <div>
     <div class="pay-done-box">
-      <img src="static/img/pay-success.png">
+      <img src="static/img/pay-success.png" />
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/vuex/store';
+import { mapState,mapActions } from "vuex";
 export default {
-  name: 'PayDone',
-   mounted () {
+  name: "PayDone",
+  created() {
+    // this.loadShoppingCart();
+  },
+  computed: {
+    ...mapState(['shoppingCart'])
+  },
+  mounted() {
     const father = this;
     setTimeout(() => {
-     this.$router.push('/');
+      this.loadShoppingCart();
+      // this.$router.push("/");
     }, 3000);
   },
+  method: {
+    ...mapActions(["loadShoppingCart",]),
+  },
+  store
 };
-
 </script>
 
 <style scoped>
