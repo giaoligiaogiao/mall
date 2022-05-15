@@ -163,6 +163,7 @@ export default {
     selectPrice(item,index){
       this.priceIndex=index
       this.cartPrice = item.price
+      console.log(this.cartPrice)
       this.time=item.time
     },
     showBigImg (index) {
