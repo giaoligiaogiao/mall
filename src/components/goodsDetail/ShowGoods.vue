@@ -25,19 +25,19 @@
           <div class="item-price-left">
             <div class="item-price-row">
               <p>
-                <span class="item-price-title">B I T 价</span>
+                <span class="item-price-title">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</span>
                 <span class="item-price">￥{{price.toFixed(2)}}</span>
               </p>
             </div>
             <div class="item-price-row">
               <p>
-                <span class="item-price-title">优 惠 价</span>
+                <span class="item-price-title">促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销 </span>
                 <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.discount" :key="index">{{item}}</span>
               </p>
             </div>
             <div class="item-price-row">
               <p>
-                <span class="item-price-title">促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</span>
+                <span class="item-price-title">活&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;动</span>
                 <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.promotion" :key="index">{{item}}</span>
               </p>
             </div>
@@ -105,16 +105,18 @@ export default {
       count: 1,
       selectBoxIndex: 0,//分期index
       imgIndex: 0,
-      priceIndex:0
+      priceIndex:0,
+      cartPrice:0,
+      time:0,
     };
   },
   computed: {
     ...mapState(['goodsInfo']),
     hirePurchase () {
       const three = this.price * this.count / 3;
-      const sex = this.price * this.count / 6;
-      const twelve = this.price * this.count / 12 * 1.0025;
-      const twentyFour = this.price * this.count / 24 * 1.005;
+      const six = this.price * this.count / 6*1.05;
+      const twelve = this.price * this.count / 12 * 1.1;
+      const twentyFour = this.price * this.count / 24 * 1.2;
       return [
         {
           tooltip: '无手续费',
@@ -122,19 +124,27 @@ export default {
         },
         {
           tooltip: '无手续费',
-          type: `￥${three.toFixed(2)} x 3期`
+          type: `￥${three.toFixed(2)} x 3期`,
+          price: three.toFixed(2),
+          time:3
         },
         {
-          tooltip: '无手续费',
-          type: `￥${sex.toFixed(2)} x 6期`
+          tooltip: '含手续费：费率0.5%',
+          type: `￥${six.toFixed(2)} x 6期`,
+           price: six.toFixed(2),
+           time:6
         },
         {
-          tooltip: '含手续费：费率0.25%起，￥0.1起×12期',
-          type: `￥${twelve.toFixed(2)} x 12期`
+          tooltip: '含手续费：费率1%起',
+          type: `￥${twelve.toFixed(2)} x 12期`,
+           price: twelve.toFixed(2),
+           time:12
         },
         {
-          tooltip: '含手续费：费率0.5%起，￥0.1起×12期',
-          type: `￥${twentyFour.toFixed(2)} x 24期`
+          tooltip: '含手续费：费率2%起',
+          type: `￥${twentyFour.toFixed(2)} x 24期`,
+          price: twentyFour.toFixed(2),
+          time:24
         }
       ];
     }
@@ -145,9 +155,12 @@ export default {
       this.selectBoxIndex = index1 * 3 + index2;
       this.price = this.goodsInfo.setMeal[index1][index2].price;
     },
+
     //选择分期
     selectPrice(item,index){
       this.priceIndex=index
+      this.cartPrice = item.price
+      this.time=0
     },
     showBigImg (index) {
       this.imgIndex = index;
@@ -161,7 +174,8 @@ export default {
         goods_id: goodsId,
         title: this.goodsInfo.title,
         count: this.count,
-        package: this.goodsInfo.setMeal[index1][index2]
+        package: this.goodsInfo.setMeal[index1][index2]+this.time.toString()+'期',
+        price: this.cartPrice
       };
       this.addShoppingCart(data);
       this.$router.push('/shoppingCart');
@@ -176,6 +190,7 @@ export default {
   store
 };
 </script>
+ 
 
 <style scoped>
 /******************商品图片及购买详情开始******************/
