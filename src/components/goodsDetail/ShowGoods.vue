@@ -113,6 +113,7 @@ export default {
   computed: {
     ...mapState(['goodsInfo']),
     hirePurchase () {
+      const one=this.price* this.count/1;
       const three = this.price * this.count / 3;
       const six = this.price * this.count / 6*1.05;
       const twelve = this.price * this.count / 12 * 1.1;
@@ -120,7 +121,9 @@ export default {
       return [
         {
           tooltip: '无手续费',
-          type: '不分期'
+          type: '不分期',
+          price: one.toFixed(2),
+          time:0
         },
         {
           tooltip: '无手续费',
@@ -171,7 +174,10 @@ export default {
       const date = new Date();
       const goodsId = date.getTime();
       let page=this.goodsInfo.setMeal[index1][index2]
-      page.intro+=' '+this.time.toString()+'期'
+      if(this.time==0){
+          
+      }else{
+      page.intro+=' '+this.time.toString()+'期'}
       const data = {
         goods_id: goodsId,
         title: this.goodsInfo.title,
