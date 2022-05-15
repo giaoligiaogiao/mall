@@ -106,7 +106,7 @@ export default {
       selectBoxIndex: 0,//分期index
       imgIndex: 0,
       priceIndex:0,
-      cartPrice:0,
+      cartPrice:28,
       time:0,
     };
   },
