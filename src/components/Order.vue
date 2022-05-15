@@ -153,6 +153,7 @@ export default {
     setTimeout(() => {
       this.$refs.selection.selectAll(true);
     }, 500);
+    console.log(this.shoppingCart)
   },
   components: {
     Search,

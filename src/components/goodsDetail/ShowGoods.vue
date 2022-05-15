@@ -170,13 +170,16 @@ export default {
       const index2 = this.selectBoxIndex % 3;
       const date = new Date();
       const goodsId = date.getTime();
+      let page=this.goodsInfo.setMeal[index1][index2]
+      page.intro+=' '+this.time.toString()+'期'
       const data = {
         goods_id: goodsId,
         title: this.goodsInfo.title,
         count: this.count,
-        package: this.goodsInfo.setMeal[index1][index2]+this.time.toString()+'期',
+        package: this.goodsInfo.setMeal[index1][index2],
         price: this.cartPrice
       };
+
       this.addShoppingCart(data);
       this.$router.push('/shoppingCart');
     }
