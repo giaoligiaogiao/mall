@@ -166,7 +166,7 @@ export default {
       this.page.pageNum = val;
       this.getData();
     },
-    getData() {
+    getData(data) {
       this.SET_LOAD_STATUS(true);
       axios({
         method: "get",
@@ -174,6 +174,7 @@ export default {
         params: {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum,
+          search:data
         },
       }).then((res) => {
         this.page.total = res.data.total
@@ -200,8 +201,10 @@ export default {
   },
   mounted() {
     this.searchItem = this.$route.query.sreachData;
+    this.getData(this.searchItem)
+    
     // this.loadGoodsList();
-    this.getData();
+    // this.getData();
   },
   components: {
     Search,
