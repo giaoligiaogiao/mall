@@ -12,7 +12,7 @@ import { mapState,mapActions } from "vuex";
 export default {
   name: "PayDone",
   created() {
-    
+    this.loadShoppingCart();
   },
   computed: {
     ...mapState(['shoppingCart'])
@@ -20,7 +20,6 @@ export default {
   mounted() {
 
     setTimeout(() => {
-      this.loadShoppingCart();
       this.$router.push("/");
     }, 3000);
   },
