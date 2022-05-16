@@ -31,9 +31,14 @@ export default {
     selectTags (index) {
       this.sreachData = this.promotionTags[index];
     },
-    sreach () {
+    sreach () { 
+      if(this.$parent.getData){
+        this.$parent.getData(this.sreachData)
+      }
+      
       this.$router.push({path: '/goodsList', query: { sreachData: this.sreachData }
-      });
+
+    });
       // axios({
       //   method: "get",
       //   url: "http://localhost:8081/goods",
