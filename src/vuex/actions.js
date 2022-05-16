@@ -577,8 +577,8 @@ export const login = ({ commit }, data) => {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' }
     })
       .then((res) => {
-        // console.log(res.data)
-        if (res.data == 1) {
+        if (res.data ==2) {
+          localStorage.setItem("level", res.data);
           localStorage.setItem('loginInfo', JSON.stringify(data));
           commit('SET_USER_LOGIN_INFO', data);
           resolve(true);

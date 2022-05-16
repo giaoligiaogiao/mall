@@ -3,29 +3,32 @@
     <div class="top-box">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item>
-          <el-button type="primary" icon="el-icon-edit" @click="addUser"
+          <el-button type="primary" icon="el-icon-edit" @click="addGood"
             >添加商品</el-button
           >
         </el-form-item>
-        <el-form-item label="搜索">
+        <el-form-item label="查询">
           <el-input
             v-model="formInline.intro"
-            placeholder="搜索条件"
+            placeholder="商品介绍"
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="page.pageNum=1;getData()">查询</el-button>
+          <el-button
+            type="primary"
+            @click="
+              page.pageNum = 1;
+              getData();
+            "
+            >查询</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
-    <el-table
-      :data="tableData"
-      style="width: 100%"
-      class="table"
-    >
-      <el-table-column prop="img" label="图片" > 
+    <el-table :data="tableData" style="width: 100%" class="table">
+      <el-table-column prop="img" label="图片">
         <template slot-scope="scope">
-          <img :src="scope.row.img" alt="" style="width:80%">
+          <img :src="scope.row.img" alt="" style="width: 80%" />
         </template>
       </el-table-column>
       <el-table-column prop="sale" label="销量"> </el-table-column>
@@ -35,10 +38,10 @@
       <el-table-column label="价格" prop="price"> </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="resetPassword(scope.$index, scope.row)"
+          <el-button size="mini" @click="reset(scope.$index, scope.row)"
             >修改</el-button
           >
-          <el-button size="mini" @click="resetPassword(scope.$index, scope.row)"
+          <el-button size="mini" @click="reset(scope.$index, scope.row)"
             >删除</el-button
           >
         </template>
@@ -66,12 +69,14 @@
       :close-on-click-modal="false"
     >
       <el-form :model="form" ref="form" :rules="rules">
-
-        <el-form-item label="商品数量" label-width="120px" prop="num">
-          <el-input v-model="form.num" placeholder="请输入内容"></el-input>
+        <el-form-item label="商品图片" label-width="120px" prop="img">
+          <el-input v-model="form.img" placeholder="请输入路径"></el-input>
         </el-form-item>
         <el-form-item label="商品介绍" label-width="120px" prop="intro">
           <el-input v-model="form.intro" placeholder="请输入内容"></el-input>
+        </el-form-item>
+        <el-form-item label="商品价格" label-width="120px" prop="price">
+          <el-input v-model="form.price" placeholder="请输入价格"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -102,8 +107,9 @@ export default {
       dialogVisible: false,
       title: "",
       form: {
-        num: "",
-        inrto: "",
+        img: "",
+        price:"",
+        intro: "",
       },
       formInline: {
         intro: "",
@@ -111,14 +117,14 @@ export default {
       },
 
       rules: {
-        file: [
+        img: [
           {
             required: true,
-            message: "请选择导入文件",
+            message: "请输入",
             trigger: "blur",
           },
         ],
-        num: [
+        price: [
           {
             required: true,
             message: "请输入",
@@ -141,7 +147,18 @@ export default {
     this.getData();
   },
   methods: {
-
+    upload(){
+      axios({
+        method: "post",
+        url: "http://localhost:8081/goods/add",
+        data:JSON.stringify({
+          
+          img:this.form.img,
+          intro:this.form.intro,
+          price:this.form.price,
+        }),
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    },)},
     getData() {
       axios({
         method: "get",
@@ -158,7 +175,20 @@ export default {
       });
     
     },
-    resetPassword(index, row) {
+    reset(index, row) {
+       axios({
+        method: "get",
+        url: "http://localhost:8081/goods",
+        params: {
+          pageSize: this.page.pageSize,
+          pageNum: this.page.pageNum,
+          search:this.formInline.intro,
+        },
+      }).then((res) => {
+        console.log(res)
+        this.tableData=res.data.list,
+        this.page.total = res.data.total;
+      });
       console.log(index, row);
       let params = {
         account: row.account,
@@ -172,7 +202,7 @@ export default {
       this.page.pageNum = val;
       this.getData();
     },
-    addUser() {
+    addGood() {
       this.form.num = "";
       this.form.intro = "";
       this.fileList = [];

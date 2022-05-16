@@ -12,6 +12,7 @@ export default new Vuex.Store({
     orderBy: 'sale', // 根据什么字段排序
     goodsInfo: { // 商品详情
       goodsImg: [],
+      
       title: '',
       tags: [],
       discount: [],

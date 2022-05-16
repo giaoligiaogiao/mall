@@ -54,7 +54,7 @@ export default {
           this.login(father.formDate).then(result => {
             if (result) {
               this.$Message.success('登录成功');
-              father.$router.push('/');
+              father.$router.push('/goods');
             } else {
               this.$Message.error('用户名或密码错误');
             }

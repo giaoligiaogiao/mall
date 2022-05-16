@@ -13,8 +13,8 @@
           </BreadcrumbItem>
         </Breadcrumb>
       </div>
-      <!-- 商品标签导航 -->
-      <GoodsClassNav></GoodsClassNav>
+      <!-- 商品标签导航
+      <GoodsClassNav></GoodsClassNav> -->
       <!-- 商品展示容器 -->
       <div class="goods-box">
         <div class="as-box">

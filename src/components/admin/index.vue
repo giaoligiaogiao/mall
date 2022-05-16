@@ -29,7 +29,7 @@
             admin<a-icon type="down" />
           </a>
           <a-menu slot="overlay">
-            <a-menu-item key="0" @click="ToRouter('login', 1)">
+            <a-menu-item key="0" @click="ToRouter('/', 1)">
               退出登录
             </a-menu-item>
             <a-menu-item key="1" @click="changePassword">修改账户</a-menu-item>

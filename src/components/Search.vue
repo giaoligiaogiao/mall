@@ -10,15 +10,21 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: 'Search',
   data () {
+    
     return {
       sreachData: '',
       promotionTags: ['买2免1', '领200神券', '199减100', '母婴5折抢', '充100送20']
     };
   },
+  watch:{
+    
+  },
   methods: {
+    
     closeTags (index) {
       this.promotionTags.splice(index, 1);
     },
@@ -26,7 +32,22 @@ export default {
       this.sreachData = this.promotionTags[index];
     },
     sreach () {
-      this.$router.push({path: '/goodsList', query: { sreachData: this.sreachData }});
+      this.$router.push({path: '/goodsList', query: { sreachData: this.sreachData }
+      });
+      // axios({
+      //   method: "get",
+      //   url: "http://localhost:8081/goods",
+      //   params: {
+      //     pageSize: this.page.pageSize,
+      //     pageNum: this.page.pageNum,
+      //     search:this.formInline.intro,
+      //   },
+      // }).then((res) => {
+      //   console.log(res)
+      //   this.tableData=res.data.list,
+      //   this.page.total = res.data.total;
+      // });
+    
     }
   }
 };
