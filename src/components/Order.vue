@@ -130,6 +130,9 @@ export default {
       this.goodsCheckList.forEach(item => {
         price += item.price * item.count;
       });
+      if (price>=100)      {
+        price=price-20;
+         }     
       return price;
     }
   },

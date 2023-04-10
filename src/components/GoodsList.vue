@@ -13,9 +13,7 @@
           </BreadcrumbItem>
         </Breadcrumb>
       </div>
-      <!-- 商品标签导航
-      <GoodsClassNav></GoodsClassNav> -->
-      <!-- 商品展示容器 -->
+  
       <div class="goods-box">
         <div class="as-box">
           <div class="item-as-title">
@@ -110,7 +108,6 @@
 <script>
 import Search from "@/components/Search";
 import GoodsListNav from "@/components/nav/GoodsListNav";
-import GoodsClassNav from "@/components/nav/GoodsClassNav";
 import store from "@/vuex/store";
 import axios from "axios";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -126,7 +123,7 @@ export default {
       isAction: [true, false, false],
       icon: ["arrow-up-a", "arrow-down-a", "arrow-down-a"],
       goodsTool: [
-        { title: "综合", en: "sale" },
+        { title: "上架时间", en: "sale" },
         { title: "评论数", en: "remarks" },
         { title: "价格", en: "price" },
       ],
@@ -209,7 +206,6 @@ export default {
   components: {
     Search,
     GoodsListNav,
-    GoodsClassNav,
   },
   store,
 };

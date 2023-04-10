@@ -72,7 +72,7 @@ export default {
           width: 120,
           key: 'createAt',
           align: 'center'
-        }
+        },
       ]
     };
   }

@@ -27,9 +27,9 @@
     </div>
     <el-table :data="tableData" style="width: 100%" class="table">
       <el-table-column prop="username" label="用户名"></el-table-column>
-      <el-table-column prop="sale" label="密码"> </el-table-column>
-      <el-table-column prop="remarks" label="邮箱"> </el-table-column>
-      <el-table-column prop="username" label="电话"> </el-table-column>
+      <el-table-column prop="password" label="密码"> </el-table-column>
+      <el-table-column prop="mail" label="邮箱"> </el-table-column>
+      <el-table-column prop="phone" label="电话"> </el-table-column>
       <el-table-column prop="level" label="权限"> </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -210,7 +210,7 @@ export default {
       this.form.num = "";
       this.form.username = "";
       this.fileList = [];
-      this.title = "新增商品";
+      this.title = "新增用户";
       this.dialogVisible = true;
     },
     resetForm(formName) {
