@@ -221,17 +221,11 @@ export const loadGoodsInfo = ({ commit }) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = {
-        goodsImg: [
-          'static/img/goodsDetail/item-detail-1.jpg',
-          'static/img/goodsDetail/item-detail-2.jpg',
-          'static/img/goodsDetail/item-detail-3.jpg',
-          'static/img/goodsDetail/item-detail-4.jpg'
-        ],
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
-        tags: ['满69-20元', '关注产品★送钢化膜', 'BIT配次日达'],
+        goodsImg: [],
+        title: [],
         discount: ['满148减10', '满218减20', '满288减30'],
         promotion: ['跨店满减', '多买优惠'],
-        remarksNum: 6000,
+        remarksNum: [],
         setMeal: [
           [
             {
@@ -249,8 +243,7 @@ export const loadGoodsInfo = ({ commit }) => {
               intro: '5.5英寸-香槟金',
               price: 28.5
             }
-          ],
-          [
+         ,
             {
               img: 'static/img/goodsDetail/pack/4.jpg',
               intro: '5.5英寸-玫瑰金',
@@ -541,12 +534,7 @@ export const qwe=({commit})=> {console.log(123)
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [
-      // goods_id: 1529931938150,
-      // count: 1,
-      // img: 'static/img/goodsDetail/pack/1.jpg',
-      // package: '4.7英寸-深邃蓝',
-      // price: 28,
-      // title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
+    
     ];
     commit('SET_SHOPPING_CART', data);
   });
@@ -577,8 +565,9 @@ export const login = ({ commit }, data) => {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' }
     })
       .then((res) => {
-        if (res.data ==2) {
-          localStorage.setItem("level", res.data);
+        if (res.data.code == 1) {
+          localStorage.setItem("level", res.data.data.level);
+          localStorage.setItem("userId", res.data.data.id);
           localStorage.setItem('loginInfo', JSON.stringify(data));
           commit('SET_USER_LOGIN_INFO', data);
           resolve(true);

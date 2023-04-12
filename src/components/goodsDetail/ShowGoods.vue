@@ -3,7 +3,7 @@
     <div class="item-detail-show">
       <div class="item-detail-left">
         <div class="item-detail-big-img">
-          <img :src="goodsInfo.goodsImg[imgIndex]" alt="">
+          <img :src="good.img" alt="">
         </div>
         <div class="item-detail-img-row">
           <div class="item-detail-img-small" v-for="(item, index) in goodsInfo.goodsImg" :key="index" @mouseover="showBigImg(index)">
@@ -14,7 +14,7 @@
       <div class="item-detail-right">
         <div class="item-detail-title">
           <p>
-            <span class="item-detail-express">校园配送</span> {{goodsInfo.title}}</p>
+            <span class="item-detail-express">校园配送</span> {{good.intro}}</p>
         </div>
         <div class="item-detail-tag">
           <p>
@@ -57,7 +57,7 @@
             <p>选择颜色</p>
           </div>
           <div class="item-select-column">
-            <div class="item-select-row" v-for="(items, index) in goodsInfo.setMeal" :key="index">
+            <div class="item-select-row" v-for="(items, index) in detailList" :key="index">
               <div class="item-select-box" v-for="(item, index1) in items" :key="index1" @click="select(index, index1)" :class="{'item-select-box-active': ((index * 3) + index1) === selectBoxIndex}">
                 <div class="item-select-img">
                   <img :src="item.img" alt="">
@@ -97,6 +97,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from "axios";
 export default {
   name: 'ShowGoods',
   data () {
@@ -108,7 +109,15 @@ export default {
       priceIndex:0,
       cartPrice:28,
       time:0,
+      detailList:[]
     };
+  },
+  props:{
+    good:{
+      type:Object,
+    default:{}
+    }
+    
   },
   computed: {
     ...mapState(['goodsInfo']),
@@ -173,15 +182,15 @@ export default {
       const index1 = parseInt(this.selectBoxIndex / 3);
       const index2 = this.selectBoxIndex % 3;
       const date = new Date();
-      const goodsId = date.getTime();
+      // const goodsId = date.;
       let page=this.goodsInfo.setMeal[index1][index2]
       if(this.time==0){
           
       }else{
       page.intro+=' '+this.time.toString()+'期'}
       const data = {
-        goods_id: goodsId,
-        title: this.goodsInfo.title,
+        goods_id: this.good.id,
+        title: this.good.intro,
         count: this.count,
         package: this.goodsInfo.setMeal[index1][index2],
         price: this.cartPrice
@@ -192,6 +201,26 @@ export default {
     }
   },
   mounted () {
+    axios({
+        method: "get",
+        url: "http://localhost:8081/models/search",
+        params: {goodsId:this.good.id},
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+      }).then(res=>{
+        let list=[]
+        let i=0
+        for (let index = 0; index < res.data.length; index++) {
+          const item = res.data[index];
+          list.push(item)
+          if((index%2==0&&index!=0)||index== res.data.length-1){
+            this.detailList[i]=list
+            i++
+            list=[]
+          }
+          
+        }
+        console.log(this.detailList)
+      });
     const father = this;
     setTimeout(() => {
       father.price = father.goodsInfo.setMeal[0][0].price || 0;
