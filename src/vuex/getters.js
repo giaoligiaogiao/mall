@@ -12,6 +12,11 @@ export const orderGoodsList = state => {
   return state.goodsList.sort(compare(state.orderBy));
 };
 
+// 获取排序后的订单列表
+export const ordersList = state => {
+  return state.ordersList.sort(compare(state.orderBy));
+};
+
 // 获取秒杀的小时
 export const seckillsHours = state => {
   return state.seckills.deadline.hours < 10 ? '0' + state.seckills.deadline.hours : state.seckills.deadline.hours;

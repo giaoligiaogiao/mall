@@ -36,7 +36,7 @@
           <el-button size="mini" @click="reset(scope.$index, scope.row)"
             >修改</el-button
           >
-          <el-button size="mini" @click="reset(scope.$index, scope.row)"
+          <el-button size="mini" @click="deleteUser(scope.$index, scope.row)"
             >删除</el-button
           >
         </template>
@@ -62,10 +62,14 @@
       :visible.sync="dialogVisible"
       :show-close="false"
       :close-on-click-modal="false"
+      @closed="beforeClose"
     >
       <el-form :model="form" ref="form" :rules="rules">
         <el-form-item label="用户名" label-width="120px" prop="username">
-          <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+          <el-input
+            v-model="form.username"
+            placeholder="请输入用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item label="密码" label-width="120px" prop="password">
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
@@ -74,10 +78,21 @@
           <el-input v-model="form.mail" placeholder="请输入邮箱"></el-input>
         </el-form-item>
         <el-form-item label="电话" label-width="120px" prop="phone">
-          <el-input v-model="form.phone" placeholder="请输入电话号码"></el-input>
+          <el-input
+            v-model="form.phone"
+            placeholder="请输入电话号码"
+          ></el-input>
         </el-form-item>
         <el-form-item label="权限" label-width="120px" prop="level">
-          <el-input v-model="form.level" placeholder="请输入权限"></el-input>
+          <el-select v-model="form.level" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -97,11 +112,12 @@ export default {
       num: 0,
       list: [],
       tableData: [],
-      searchData:[],
+      searchData: [],
+      type: "",
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5,7,10],
+        pageSizes: [5, 7, 10],
         pageSize: 7,
         pageNum: 1,
       },
@@ -109,16 +125,25 @@ export default {
       title: "",
       form: {
         username: "",
-        password:"",
-        mail:"",
-        phone:"",
-        level:"",
+        password: "",
+        mail: "",
+        phone: "",
+        level: "",
       },
       formInline: {
         username: "",
         type: "",
       },
-
+      options: [
+        {
+          label: "1",
+          value: 1,
+        },
+        {
+          label: "2",
+          value: 2,
+        },
+      ],
       rules: {
         img: [
           {
@@ -141,28 +166,99 @@ export default {
             trigger: "blur",
           },
         ],
+        password: [
+          {
+            required: true,
+            message: "请输入",
+            trigger: "blur",
+          },
+          {
+            min: 6,
+            trigger: "blur",
+          },
+        ],
+        mail: [
+          {
+            required: true,
+            message: "请输入",
+            trigger: "blur",
+          },
+        ],
+        level: [
+          {
+            required: true,
+            message: "请输入",
+            trigger: "blur",
+          },
+        ],
+        phone: [
+          {
+            required: true,
+            message: "请输入",
+            trigger: "blur",
+          },
+        ],
       },
     };
   },
-  computed: {
-  },
+  computed: {},
   created() {
     this.getData();
   },
   methods: {
-    upload(){
+    edit(data) {
       axios({
         method: "post",
-        url: "http://localhost:8081/users/add",
-        data:JSON.stringify({
-          username:this.form.username,
-          password:this.form.password,
-          mail:this.form.mail,
-          phone:this.form.phone,
-          level:this.from.level,
-        }),
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    },)},
+        url: "http://localhost:8081/users/modify",
+        data: this.form,
+      }).then((res) => {
+        console.log(res);
+        this.dialogVisible = false;
+      });
+      setTimeout(() => {
+        this.getData();
+      }, 10);
+    },
+    upload() {
+      if (this.type == "edit") {
+        this.edit();
+      } else {
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            axios({
+              method: "post",
+              url: "http://localhost:8081/users/signup",
+              data: JSON.stringify({
+                username: this.form.username,
+                password: this.form.password,
+                mail: this.form.mail,
+                phone: this.form.phone,
+                level: this.form.level,
+              }),
+              headers: { "Content-Type": "application/json;charset=UTF-8" },
+            });
+            setTimeout(() => {
+              this.dialogVisible = false;
+              this.getData();
+            });
+          } else {
+            return false;
+          }
+        });
+      }
+    },
+    delete() {
+      axios({
+        method: "get",
+        url: "http://localhost:8081/users/delete",
+        params: {
+          id: this.form.id,
+        },
+      });
+      setTimeout(() => {
+        this.getData();
+      });
+    },
     getData() {
       axios({
         method: "get",
@@ -170,33 +266,26 @@ export default {
         params: {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum,
-          search:this.formInline.username,
+          search: this.formInline.username,
         },
       }).then((res) => {
-        console.log(res)
-        this.tableData=res.data.list,
-        this.page.total = res.data.total;
+        console.log(res);
+        (this.tableData = res.data.list), (this.page.total = res.data.total);
       });
-    
     },
     reset(index, row) {
-       axios({
-        method: "get",
-        url: "http://localhost:8081/users",
-        params: {
-          pageSize: this.page.pageSize,
-          pageNum: this.page.pageNum,
-          search:this.formInline.username,
-        },
-      }).then((res) => {
-        console.log(res)
-        this.tableData=res.data.list,
-        this.page.total = res.data.total;
-      });
+      this.dialogVisible = true;
+      this.title = "编辑";
+      this.form = row;
+      this.type = "edit";
+
       console.log(index, row);
-      let params = {
-        account: row.account,
-      };
+    },
+    deleteUser(index, row) {
+      this.form = row;
+      this.type = "delete";
+      this.delete();
+      console.log(index, row);
     },
     handleSizeChange(val) {
       this.page.pageSize = val;
@@ -207,15 +296,17 @@ export default {
       this.getData();
     },
     addUser() {
-      this.form.num = "";
-      this.form.username = "";
       this.fileList = [];
       this.title = "新增用户";
       this.dialogVisible = true;
     },
+
     resetForm(formName) {
       if (formName == "form") this.dialogVisible = false;
       this.$refs[formName].resetFields();
+    },
+    beforeClose() {
+      this.$refs.form.resetFields();
     },
   },
 };
