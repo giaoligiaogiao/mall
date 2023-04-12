@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 商品信息展示 -->
-    <ShowGoods></ShowGoods>
+    <ShowGoods :good="good"></ShowGoods>
     <!-- 商品详细展示 -->
     <ShowGoodsDetail></ShowGoodsDetail>
     <Spin size="large" fix v-if="isLoading"></Spin>
@@ -32,10 +32,14 @@ export default {
   },
   created () {
     this.loadGoodsInfo();
+    this.good=this.$route.query
+    console.clear()
+    console.log(this.good)
   },
   data () {
     return {
-      tagsColor: [ 'blue', 'green', 'red', 'yellow' ]
+      tagsColor: [ 'blue', 'green', 'red', 'yellow' ],
+      good:{}
     };
   },
   methods: {

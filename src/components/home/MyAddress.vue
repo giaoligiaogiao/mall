@@ -10,9 +10,9 @@
       </div>
       <div class="address-content">
         <p><span class="address-content-title"> 收 货 人 :</span> {{item.name}}</p>
-        <p><span class="address-content-title">收货地区:</span> {{item.province}} {{item.city}} {{item.area}}</p>
-        <p><span class="address-content-title">收货地址:</span> {{item.address}}</p>
-        <p><span class="address-content-title">邮政编码:</span> {{item.postalcode}}</p>
+        <p><span class="address-content-title">密码:</span> {{item.province}} {{item.city}} {{item.area}}</p>
+        <p><span class="address-content-title">手机:</span> {{item.address}}</p>
+        <p><span class="address-content-title">地址:</span> {{item.postalcode}}</p>
       </div>
     </div>
     <Modal v-model="modal" width="530">

@@ -31,7 +31,7 @@
           <img :src="scope.row.img" alt="" style="width: 80%" />
         </template>
       </el-table-column>
-      <el-table-column prop="sale" label="销量"> </el-table-column>
+      <el-table-column prop="volume" label="销量"> </el-table-column>
       <el-table-column prop="remarks" label="评论"> </el-table-column>
       <el-table-column prop="intro" label="介绍"> </el-table-column>
 
@@ -41,8 +41,14 @@
           <el-button size="mini" @click="reset(scope.$index, scope.row)"
             >修改</el-button
           >
-          <el-button size="mini" @click="reset(scope.$index, scope.row)"
+          <el-button size="mini" @click="deleteGoods(scope.$index, scope.row)"
             >删除</el-button
+          >
+          <el-button size="mini" @click="reset(scope.$index, scope.row)"
+            >添加款式</el-button
+          >
+          <el-button size="mini" @click="reset(scope.$index, scope.row)"
+            >编辑款式</el-button
           >
         </template>
       </el-table-column>
@@ -72,6 +78,9 @@
         <el-form-item label="商品图片" label-width="120px" prop="img">
           <el-input v-model="form.img" placeholder="请输入路径"></el-input>
         </el-form-item>
+        <el-form-item label="商品详情" label-width="120px" prop="img2">
+          <el-input v-model="form.img2" placeholder="请输入路径"></el-input>
+        </el-form-item>
         <el-form-item label="商品介绍" label-width="120px" prop="intro">
           <el-input v-model="form.intro" placeholder="请输入内容"></el-input>
         </el-form-item>
@@ -96,11 +105,11 @@ export default {
       num: 0,
       list: [],
       tableData: [],
-      searchData:[],
+      searchData: [],
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5,7,10],
+        pageSizes: [5, 7, 10],
         pageSize: 7,
         pageNum: 1,
       },
@@ -108,7 +117,7 @@ export default {
       title: "",
       form: {
         img: "",
-        price:"",
+        price: "",
         intro: "",
       },
       formInline: {
@@ -141,24 +150,62 @@ export default {
       },
     };
   },
-  computed: {
-  },
+  computed: {},
   created() {
     this.getData();
   },
   methods: {
-    upload(){
+    edit(data) {
+      axios({
+        method: "post",
+        url: "http://localhost:8081/goods/modify",
+        data: this.form,
+      }).then((res) => {
+        console.log(res);
+        this.dialogVisible = false;
+      });
+      setTimeout(() => {
+        this.getData();
+      }, 10);},
+    upload() {
+      if (this.type == "edit") {
+        this.edit();
+      } else {
+        this.$refs.form.validate((valid) => {
+          if (valid) {
       axios({
         method: "post",
         url: "http://localhost:8081/goods/add",
-        data:JSON.stringify({
-          
-          img:this.form.img,
-          intro:this.form.intro,
-          price:this.form.price,
+        data: JSON.stringify({
+          img: this.form.img,
+          img2: this.form.img2,
+          intro: this.form.intro,
+          price: this.form.price,
         }),
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    },)},
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+      });
+      setTimeout(() => {
+              this.dialogVisible = false;
+              this.getData();
+            });
+          }else {
+            return false;
+          }
+        });
+      }
+    },
+    delete() {
+      axios({
+        method: "get",
+        url: "http://localhost:8081/goods/delete",
+        params: {
+          id: this.form.id,
+        },
+      });
+      setTimeout(() => {
+        this.getData();
+      });
+    },
     getData() {
       axios({
         method: "get",
@@ -166,33 +213,25 @@ export default {
         params: {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum,
-          search:this.formInline.intro,
+          search: this.formInline.intro,
         },
       }).then((res) => {
-        console.log(res)
-        this.tableData=res.data.list,
-        this.page.total = res.data.total;
+        console.log(res);
+        (this.tableData = res.data.list), (this.page.total = res.data.total);
       });
-    
     },
     reset(index, row) {
-       axios({
-        method: "get",
-        url: "http://localhost:8081/goods",
-        params: {
-          pageSize: this.page.pageSize,
-          pageNum: this.page.pageNum,
-          search:this.formInline.intro,
-        },
-      }).then((res) => {
-        console.log(res)
-        this.tableData=res.data.list,
-        this.page.total = res.data.total;
-      });
+      this.dialogVisible = true;
+      this.title = "编辑";
+      this.form = row;
+      this.type = "edit";
       console.log(index, row);
-      let params = {
-        account: row.account,
-      };
+    },
+    deleteGoods(index, row) {
+      this.form = row;
+      this.type = "delete";
+      this.delete();
+      console.log(index, row);
     },
     handleSizeChange(val) {
       this.page.pageSize = val;
@@ -203,8 +242,6 @@ export default {
       this.getData();
     },
     addGood() {
-      this.form.num = "";
-      this.form.intro = "";
       this.fileList = [];
       this.title = "新增商品";
       this.dialogVisible = true;

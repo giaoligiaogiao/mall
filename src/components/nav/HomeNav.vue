@@ -145,17 +145,7 @@ export default {
     return {
       panel1: false,
       panel2: false,
-      nav: [
-        '秒杀',
-        '优惠券',
-        '闪购',
-        '拍卖',
-        '服装城',
-        '超市',
-        '生鲜',
-        '全球购',
-        '金融'
-      ],
+      
       panelData1: {
         navTags: [ '清洁用品', '美妆商城', '美妆馆', '妆比社', '全球购美妆', '宠物馆' ],
         classNav: [

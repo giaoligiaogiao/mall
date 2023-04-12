@@ -1,7 +1,6 @@
 <template>
   <div>
     <Search></Search>
-    <GoodsListNav></GoodsListNav>
     <div class="goods-list-container">
       <Alert show-icon class="tips-box">
         小提示
@@ -46,7 +45,7 @@
         <div class="pay-box">
           <p><span>提交订单应付总额：</span> <span class="money"><Icon type="social-yen"></Icon> {{totalPrice.toFixed(2)}}</span></p>
           <div class="pay-btn">
-            <router-link to="/pay"><Button type="error" size="large">支付订单</Button></router-link>
+            <Button type="error" size="large" @click="pay()">支付订单</Button>
           </div>
         </div>
       </div>
@@ -56,8 +55,8 @@
 
 <script>
 import Search from '@/components/Search';
-import GoodsListNav from '@/components/nav/GoodsListNav';
 import store from '@/vuex/store';
+import axios from "axios";
 import { mapState, mapActions } from 'vuex';
 export default {
   name: 'Order',
@@ -100,7 +99,7 @@ export default {
         {
           title: '套餐',
           width: 198,
-          key: 'package',
+          key: 'intro',
           align: 'center'
         },
         {
@@ -138,6 +137,28 @@ export default {
   },
   methods: {
     ...mapActions(['loadAddress']),
+    pay(){
+      this.goodsCheckList.forEach(item => {
+        item.intro=item.package
+        delete item.package
+        item.goodId = item.goods_Id
+        delete item.goods_Id
+        item.userId = localStorage.getItem("userId");
+      });
+      if(this.goodsCheckList.length>0){
+        axios({
+        method: "post",
+        url: "http://localhost:8081/order/add",
+        data:this.goodsCheckList,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      },).then(res=>{
+        console.log(res)
+        this.$router.push('/payDone')
+      })
+    } else{
+      this.$message.error('请选择订单')
+    }
+    },
     select (selection, row) {
       console.log(selection);
       this.goodsCheckList = selection;
@@ -160,7 +181,6 @@ export default {
   },
   components: {
     Search,
-    GoodsListNav
   },
   store
 };

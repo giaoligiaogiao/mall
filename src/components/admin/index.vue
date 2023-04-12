@@ -13,7 +13,7 @@
         </a-menu-item>
         <a-menu-item key="3" @click="ToRouter('order2', '3')">
           <a-icon type="home" />
-          <span>订单管理</span>
+          <span>订单信息</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

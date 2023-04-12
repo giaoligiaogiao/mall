@@ -1,7 +1,6 @@
 <template>
   <div>
     <Search></Search>
-    <GoodsListNav></GoodsListNav>
     <div class="container">
       <div class="bread-crumb">
         <Breadcrumb>
@@ -60,9 +59,8 @@
               :key="index"
             >
               <div class="goods-show-img">
-                <router-link to="/goodsDetail"
-                  ><img :src="item.img"
-                /></router-link>
+                
+                <img :src="item.img" @click="todetail(item)"/>
               </div>
               <div class="goods-show-price">
                 <span>
@@ -107,7 +105,6 @@
 
 <script>
 import Search from "@/components/Search";
-import GoodsListNav from "@/components/nav/GoodsListNav";
 import store from "@/vuex/store";
 import axios from "axios";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -195,6 +192,12 @@ export default {
         });
       });
     },
+    todetail(item){
+      this.$router.push({
+        query:item,
+        path:'/goodsDetail'
+      })
+    }
   },
   mounted() {
     this.searchItem = this.$route.query.sreachData;
@@ -204,8 +207,7 @@ export default {
     // this.getData();
   },
   components: {
-    Search,
-    GoodsListNav,
+    Search
   },
   store,
 };

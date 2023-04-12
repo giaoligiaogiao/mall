@@ -9,7 +9,7 @@
           ></el-input>
         </el-form-item>
           <el-button type="primary" @click="page.pageNum=1;getData()">查询</el-button>
-        </el-form-item>
+       
       </el-form>
     </div>
     <el-table

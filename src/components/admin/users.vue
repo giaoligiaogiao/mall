@@ -28,7 +28,7 @@
     <el-table :data="tableData" style="width: 100%" class="table">
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="password" label="密码"> </el-table-column>
-      <el-table-column prop="mail" label="邮箱"> </el-table-column>
+      <el-table-column prop="address" label="地址"> </el-table-column>
       <el-table-column prop="phone" label="电话"> </el-table-column>
       <el-table-column prop="level" label="权限"> </el-table-column>
       <el-table-column label="操作">
@@ -74,8 +74,8 @@
         <el-form-item label="密码" label-width="120px" prop="password">
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" label-width="120px" prop="mail">
-          <el-input v-model="form.mail" placeholder="请输入邮箱"></el-input>
+        <el-form-item label="地址" label-width="120px" prop="address">
+          <el-input v-model="form.address" placeholder="请输入地址"></el-input>
         </el-form-item>
         <el-form-item label="电话" label-width="120px" prop="phone">
           <el-input
@@ -126,7 +126,7 @@ export default {
       form: {
         username: "",
         password: "",
-        mail: "",
+        address: "",
         phone: "",
         level: "",
       },
@@ -177,7 +177,7 @@ export default {
             trigger: "blur",
           },
         ],
-        mail: [
+        address: [
           {
             required: true,
             message: "请输入",
@@ -231,7 +231,7 @@ export default {
               data: JSON.stringify({
                 username: this.form.username,
                 password: this.form.password,
-                mail: this.form.mail,
+                address: this.form.address,
                 phone: this.form.phone,
                 level: this.form.level,
               }),

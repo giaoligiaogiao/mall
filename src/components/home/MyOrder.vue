@@ -23,9 +23,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="page-size">
-      <Page :total="100" show-sizer></Page>
-    </div>
+    
     <el-dialog
       title="商品评价"
       :visible.sync="dialogVisible"
@@ -51,27 +49,50 @@
 </template>
 
 <script>
+import store from '@/vuex/store';
+import axios from "axios";
+import { mapState  } from "vuex";
 export default {
   name: "MyOrder",
+  mounted(){
+    setTimeout(() => {
+    this.getData();
+    })
+  },
+ 
   data() {
     return {
+        fileList: [],
+      num: 0,
+      list: [],
+      tableData: [],
+      searchData:[],
+      
+      title: "",
+      form: {
+        user_id: "",
+        price:"",
+        count:"",
+        intro:"",
+        time:"",
+      },
+      formInline: {
+        order_id: "",
+        type: "",
+      },
+      orders:[],
       dialogVisible:false,
       form:{
         comments:'',
         rate:0
       },
       order: [
-        {
-          order_id: 1529931938150,
-          count: 1,
-          img: "static/img/goodsDetail/pack/1.jpg",
-          package: "4.7英寸-深邃蓝",
-          price: 28,
-          title: "苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳",
-          createAt: "2018-06-06 20:06:08"
-        }
+
       ],
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   methods: {
     handleRate() {
@@ -88,9 +109,22 @@ export default {
       else{
 
       }
-    }
-  }
+    },
+    getData() {
+      axios({
+        method: "get",
+        url: "http://localhost:8081/order/myOrder",
+        params: {
+          userId:localStorage.getItem('userId'),
+        },
+      }).then((res) => {
+        this.ordersList=res.data;
+      });
+     },
+  },
+  store
 };
+// let orderList = ["id","img","models", "intro", "time","num"];
 </script>
 
 <style scoped>

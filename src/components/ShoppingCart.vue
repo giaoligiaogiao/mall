@@ -1,7 +1,6 @@
 <template>
   <div>
     <Search></Search>
-    <GoodsListNav></GoodsListNav>
     <!-- 添加成功提示 -->
     <div class="add-info-box-container">
       <div class="add-info-box">
@@ -65,7 +64,6 @@
 
 <script>
 import Search from '@/components/Search';
-import GoodsListNav from '@/components/nav/GoodsListNav';
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 export default {
@@ -84,8 +82,7 @@ export default {
     ...mapActions(['loadRecommend'])
   },
   components: {
-    Search,
-    GoodsListNav
+    Search
   },
   store
 };

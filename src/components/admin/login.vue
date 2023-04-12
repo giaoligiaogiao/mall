@@ -53,6 +53,7 @@ export default {
         if (valid) {
           this.login(father.formDate).then(result => {
             if (result) {
+              
               this.$Message.success('登录成功');
               father.$router.push('/goods');
             } else {

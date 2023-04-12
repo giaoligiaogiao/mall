@@ -4,8 +4,8 @@
         <FormItem label="用户名" prop="name">
             <i-input v-model="formValidate.name" clearable size="large" placeholder="请输入你的姓名"></i-input>
         </FormItem>
-        <FormItem label="邮箱" prop="mail">
-            <i-input v-model="formValidate.mail" clearable size="large" placeholder="请输入你的邮箱"></i-input>
+        <FormItem label="默认地址" prop="address">
+            <i-input v-model="formValidate.address" clearable size="large" placeholder="请输入你的地址"></i-input>
         </FormItem>
         <FormItem label="密码" prop="password">
             <i-input type="password" v-model="formValidate.password" clearable size="large" placeholder="请输入你的密码"></i-input>
@@ -36,7 +36,7 @@ export default {
     return {
       formValidate: {
         name: '',
-        mail: '',
+        address: '',
         password: '',
         repassword: ''
       },
@@ -44,9 +44,8 @@ export default {
         name: [
           { required: true, message: '用户名不能为空', trigger: 'blur' }
         ],
-        mail: [
-          { required: true, message: '邮箱不能为空', trigger: 'blur' },
-          { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
+        address: [
+          { required: true, message: '地址不能为空', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
@@ -69,7 +68,7 @@ export default {
           const userinfo = {
             username: this.formValidate.name,
             password: this.formValidate.password,
-            mail: this.formValidate.mail,
+            address: this.formValidate.address,
             phone: this.$route.query.phone
           };
           this.addSignUpUser(userinfo);
