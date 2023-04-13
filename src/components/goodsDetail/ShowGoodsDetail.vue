@@ -119,6 +119,7 @@ export default {
     this.getList()
   },
   methods: {
+    //TODO
     getList(){
        axios({
         method: "get",
