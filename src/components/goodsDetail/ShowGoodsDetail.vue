@@ -50,8 +50,8 @@
                 </div>
                 <div class="remarks-analyse-box">
                   <div class="remarks-analyse-goods">
-                    <i-circle :percent="goodsInfo.remarks.goodAnalyse" stroke-color="#e4393c">
-                      <span class="remarks-analyse-num">{{goodsInfo.remarks.goodAnalyse}}%</span>
+                    <i-circle :percent="good.total" stroke-color="#e4393c">
+                      <span class="remarks-analyse-num">{{good.total}}%</span>
                       <p class="remarks-analyse-title">好评率</p>
                     </i-circle>
                   </div>
