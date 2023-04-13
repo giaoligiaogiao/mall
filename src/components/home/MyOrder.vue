@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="order" style="width: 100%" border>
+    <el-table :data="ordersList" style="width: 100%" border>
       <el-table-column label="订单号" prop="order_id"></el-table-column>
       <el-table-column label="图片" prop="img">
         <template slot-scope="scope">
@@ -11,7 +11,7 @@
       <el-table-column label="款式" prop="package"></el-table-column>
       <el-table-column label="数量" prop="count"></el-table-column>
       <el-table-column label="价格" prop="price"></el-table-column>
-      <el-table-column label="购买时间" prop="createAt"></el-table-column>
+      <el-table-column label="购买时间" prop="time"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
@@ -54,12 +54,7 @@ import axios from "axios";
 import { mapState  } from "vuex";
 export default {
   name: "MyOrder",
-  mounted(){
-    setTimeout(() => {
-    this.getData();
-    })
-  },
- 
+  
   data() {
     return {
         fileList: [],
@@ -73,7 +68,7 @@ export default {
         user_id: "",
         price:"",
         count:"",
-        intro:"",
+        model:"",
         time:"",
       },
       formInline: {
@@ -89,10 +84,14 @@ export default {
       order: [
 
       ],
+      ordersList:[]
     }
   },
   computed: {
     ...mapState(['userInfo'])
+  },
+  mounted(){
+    this.getData();
   },
   methods: {
     handleRate() {
@@ -124,7 +123,6 @@ export default {
   },
   store
 };
-// let orderList = ["id","img","models", "intro", "time","num"];
 </script>
 
 <style scoped>

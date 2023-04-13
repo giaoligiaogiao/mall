@@ -14,7 +14,7 @@
       <div class="item-detail-right">
         <div class="item-detail-title">
           <p>
-            <span class="item-detail-express">校园配送</span> {{good.intro}}</p>
+            <span class="item-detail-express">校园配送</span> {{good.title}}</p>
         </div>
         <div class="item-detail-tag">
           <p>
@@ -62,8 +62,8 @@
                 <div class="item-select-img">
                   <img :src="item.img" alt="">
                 </div>
-                <div class="item-select-intro">
-                  <p>{{item.intro}}</p>
+                <div class="item-select-title">
+                  <p>{{item.model}}</p>
                 </div>
               </div>
             </div>
@@ -187,10 +187,10 @@ export default {
       if(this.time==0){
           
       }else{
-      page.intro+=' '+this.time.toString()+'期'}
+      page.title+=' '+this.time.toString()+'期'}
       const data = {
         goods_id: this.good.id,
-        title: this.good.intro,
+        title: this.good.title,
         count: this.count,
         package: this.goodsInfo.setMeal[index1][index2],
         price: this.cartPrice
@@ -380,7 +380,7 @@ export default {
 .item-select-img img {
   width: 100%;
 }
-.item-select-intro p {
+.item-select-title p {
   margin: 0px;
   padding: 5px;
 }

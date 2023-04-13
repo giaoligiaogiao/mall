@@ -36,14 +36,14 @@ export default {
           align: 'center'
         },
         {
-          title: '标题',
+          title: '商品',
           key: 'title',
           align: 'center'
         },
         {
-          title: '套餐',
+          title: '款式',
           width: 198,
-          key: 'package',
+          key: 'model',
           align: 'center'
         },
         {

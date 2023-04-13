@@ -20,7 +20,7 @@
           <span class="footer-icon-text">天天低价，畅选无忧</span>
         </div>
       </div>
-      <div class="service-intro">
+      <div class="service-title">
         <div class="servece-type">
           <div class="servece-type-info" v-for="(guide, index) in guideArr" :key="index">
             <ul>
@@ -39,9 +39,7 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        <div class="copyright">
-          <p>Copyright © 2018 by Gavin <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a> <span>本项目仅供学习参考</span></p>
-        </div>
+       
       </div>
     </footer>
   </div>
@@ -111,7 +109,7 @@ export default {
   font-weight: bold;
   line-height: 64px;
 }
-.service-intro {
+.service-title {
   width: 100%;
   border-top: 1px solid #b2dfdb;
 }

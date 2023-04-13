@@ -16,8 +16,7 @@ const Order = resolve => require(['@/components/Order'], resolve);
 const PayDone = resolve => require(['@/components/PayDone'], resolve);
 const Freeback = resolve => require(['@/components/Freeback'], resolve);
 const Home = resolve => require(['@/components/Home'], resolve);
-const MyAddress = resolve => require(['@/components/home/MyAddress'], resolve);
-const AddAddress = resolve => require(['@/components/home/AddAddress'], resolve);
+const MyInfo = resolve => require(['@/components/home/Myinfo'], resolve);
 const MyOrder = resolve => require(['@/components/home/MyOrder'], resolve);
 const MyShoppingCart = resolve => require(['@/components/home/MyShoppingCart'], resolve);
 
@@ -104,15 +103,11 @@ export default new Router({
           component: MyOrder
         },
         {
-          path: 'myAddress',
-          name: 'MyAddress',
-          component: MyAddress
+          path: 'myInfo',
+          name: 'MyInfo',
+          component: MyInfo
         },
-        {
-          path: 'addAddress',
-          name: 'AddAddress',
-          component: AddAddress
-        },
+     
         {
           path: 'myOrder',
           name: 'MyOrder',

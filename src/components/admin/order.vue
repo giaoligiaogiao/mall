@@ -24,7 +24,7 @@
       </el-table-column>
       <el-table-column prop="sale" label="销量"> </el-table-column>
       <el-table-column prop="remarks" label="评论"> </el-table-column>
-      <el-table-column prop="intro" label="介绍"> </el-table-column>
+      <el-table-column prop="title" label="商品"> </el-table-column>
 
       <el-table-column label="价格" prop="price"> </el-table-column>
       <el-table-column label="操作">
@@ -45,8 +45,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.pageNum"
-        :page-sizes="page.pageSizes"
-        :page-size="page.pageSize"
+   
         layout="total, sizes, prev, pager, next, jumper"
         :total="page.total"
       >
@@ -64,8 +63,8 @@
         <el-form-item label="商品数量" label-width="120px" prop="num">
           <el-input v-model="form.num" placeholder="请输入内容"></el-input>
         </el-form-item>
-        <el-form-item label="商品介绍" label-width="120px" prop="intro">
-          <el-input v-model="form.intro" placeholder="请输入内容"></el-input>
+        <el-form-item label="商品介绍" label-width="120px" prop="title">
+          <el-input v-model="form.title" placeholder="请输入内容"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -88,7 +87,6 @@ export default {
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5, 7, 10],
         pageSize: 7,
         pageNum: 1,
       },
@@ -118,7 +116,7 @@ export default {
             trigger: "blur",
           },
         ],
-        intro: [
+        model: [
           {
             required: true,
             message: "请输入",
@@ -178,7 +176,7 @@ export default {
     },
     addUser() {
       this.form.num = "";
-      this.form.intro = "";
+      this.form.model = "";
       this.fileList = [];
       this.title = "新增商品";
       this.dialogVisible = true;

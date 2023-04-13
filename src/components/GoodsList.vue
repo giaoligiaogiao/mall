@@ -29,8 +29,8 @@
                 <span class="seckill-price text-danger">{{ item.price }}</span>
               </span>
             </div>
-            <div class="item-as-intro">
-              <span>{{ item.intro }}</span>
+            <div class="item-as-title">
+              <span>{{ item.title }}</span>
             </div>
             <div class="item-as-selled">
               已有<span>{{ item.num }}</span
@@ -71,7 +71,7 @@
                 </span>
               </div>
               <div class="goods-show-detail">
-                <span>{{ item.intro }}</span>
+                <span>{{ item.title }}</span>
               </div>
               <div class="goods-show-num">
                 <span>{{ item.remarks }}</span
@@ -91,8 +91,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="page.pageNum"
-          :page-sizes="page.pageSizes"
-          :page-size="page.pageSize"
+         
           layout="total, sizes, prev, pager, next, jumper"
           :total="page.total"
         >
@@ -128,7 +127,6 @@ export default {
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5, 7, 10],
         pageSize: 7,
         pageNum: 1,
       },
@@ -180,7 +178,7 @@ export default {
                 {
                   img: "static/img/goodsList/item-as-.jpg",
                   price: 39.9,
-                  intro: "SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬",
+                  title: "SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬",
                   num: 3140,
                   sale: 9000,
                 },
@@ -263,7 +261,7 @@ export default {
 .item-as-price span {
   font-size: 18px;
 }
-.item-as-intro {
+.item-as-title {
   margin-top: 5px;
   font-size: 12px;
 }

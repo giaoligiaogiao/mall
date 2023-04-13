@@ -49,8 +49,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.pageNum"
-        :page-sizes="page.pageSizes"
-        :page-size="page.pageSize"
+      
         layout="total, sizes, prev, pager, next, jumper"
         :total="page.total"
       >
@@ -117,7 +116,7 @@ export default {
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5, 7, 10],
+        
         pageSize: 7,
         pageNum: 1,
       },

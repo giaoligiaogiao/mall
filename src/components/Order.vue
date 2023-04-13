@@ -92,14 +92,14 @@ export default {
           align: 'center'
         },
         {
-          title: '标题',
+          title: '商品',
           key: 'title',
           align: 'center'
         },
         {
-          title: '套餐',
+          title: '款式',
           width: 198,
-          key: 'intro',
+          key: 'model',
           align: 'center'
         },
         {
@@ -139,10 +139,8 @@ export default {
     ...mapActions(['loadAddress']),
     pay(){
       this.goodsCheckList.forEach(item => {
-        item.intro=item.package
+        item.title=item.package
         delete item.package
-        item.goodId = item.goods_Id
-        delete item.goods_Id
         item.userId = localStorage.getItem("userId");
       });
       if(this.goodsCheckList.length>0){

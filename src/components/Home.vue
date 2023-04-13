@@ -12,10 +12,9 @@
           <Submenu name="1">
             <template slot="title">
                 <Icon type="location"></Icon>
-                <span>收货地址</span>
+                <span>个人信息</span>
             </template>
-            <MenuItem name="myAddress">我的收货地址</MenuItem>
-            <MenuItem name="addAddress">添加收货地址</MenuItem>
+            <MenuItem name="myInfo">我的信息</MenuItem>
           </Submenu>
           <Submenu name="2">
             <template slot="title">
@@ -42,7 +41,6 @@
             <router-view></router-view>
           </transition>
         </Content>
-        <Footer class="layout-footer-center">2018 &copy; Gavin</Footer>
       </Layout>
     </Layout>
   </div>
@@ -55,8 +53,7 @@ export default {
     return {
       activeTitle: '我的订单',
       bar: {
-        'myAddress': '我的收货地址',
-        'addAddress': '添加收货地址',
+        'myInfo': '我的信息',
         'myOrder': '我的订单',
         'myShoppingCart': '我的购物车'
       },

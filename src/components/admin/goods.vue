@@ -9,7 +9,7 @@
         </el-form-item>
         <el-form-item label="查询">
           <el-input
-            v-model="formInline.intro"
+            v-model="formInline.title"
             placeholder="商品介绍"
           ></el-input>
         </el-form-item>
@@ -33,7 +33,7 @@
       </el-table-column>
       <el-table-column prop="volume" label="销量"> </el-table-column>
       <el-table-column prop="remarks" label="评论"> </el-table-column>
-      <el-table-column prop="intro" label="介绍"> </el-table-column>
+      <el-table-column prop="title" label="商品"> </el-table-column>
 
       <el-table-column label="价格" prop="price"> </el-table-column>
       <el-table-column label="操作">
@@ -47,7 +47,7 @@
           <el-button size="mini" @click="reset(scope.$index, scope.row)"
             >添加款式</el-button
           >
-          <el-button size="mini" @click="reset(scope.$index, scope.row)"
+          <el-button size="mini" @click="openks(scope.$index, scope.row)"
             >编辑款式</el-button
           >
         </template>
@@ -60,8 +60,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.pageNum"
-        :page-sizes="page.pageSizes"
-        :page-size="page.pageSize"
+        
         layout="total, sizes, prev, pager, next, jumper"
         :total="page.total"
       >
@@ -81,8 +80,8 @@
         <el-form-item label="商品详情" label-width="120px" prop="img2">
           <el-input v-model="form.img2" placeholder="请输入路径"></el-input>
         </el-form-item>
-        <el-form-item label="商品介绍" label-width="120px" prop="intro">
-          <el-input v-model="form.intro" placeholder="请输入内容"></el-input>
+        <el-form-item label="商品介绍" label-width="120px" prop="title">
+          <el-input v-model="form.title" placeholder="请输入内容"></el-input>
         </el-form-item>
         <el-form-item label="商品价格" label-width="120px" prop="price">
           <el-input v-model="form.price" placeholder="请输入价格"></el-input>
@@ -92,6 +91,29 @@
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="upload()">确 定</el-button>
       </div>
+    </el-dialog>
+    <el-dialog
+      :title="title1"
+      width="1000px"
+      :visible.sync="dialogVisible1"
+      :close-on-click-modal="false"
+    >
+      <el-form :model="form1" ref="form1" >
+        <div v-for="item in form1" style="display:flex">
+          <el-form-item label="商品图片" label-width="120px" prop="img">
+            <el-input v-model="item.img" placeholder="请输入路径"></el-input>
+          </el-form-item>
+          <el-form-item label="商品介绍" label-width="120px" prop="title">
+            <el-input v-model="item.model" placeholder="请输入内容"></el-input>
+          </el-form-item>
+          <el-form-item label="商品价格" label-width="120px" prop="price">
+            <el-input v-model="item.price" placeholder="请输入价格"></el-input>
+          </el-form-item>
+          <el-button @click="editks(item)">编辑</el-button>
+          <el-button @click="deleteks(item)">删除</el-button>
+        </div>
+        
+      </el-form>
     </el-dialog>
   </div>
 </template>
@@ -109,7 +131,7 @@ export default {
       page: {
         pages: 5,
         total: 0,
-        pageSizes: [5, 7, 10],
+      
         pageSize: 7,
         pageNum: 1,
       },
@@ -118,12 +140,16 @@ export default {
       form: {
         img: "",
         price: "",
-        intro: "",
+        title: "",
+      },
+      form1:{
+
       },
       formInline: {
-        intro: "",
+        title: "",
         type: "",
       },
+      dialogVisible1:false,
 
       rules: {
         img: [
@@ -140,7 +166,7 @@ export default {
             trigger: "blur",
           },
         ],
-        intro: [
+        title: [
           {
             required: true,
             message: "请输入",
@@ -179,7 +205,7 @@ export default {
         data: JSON.stringify({
           img: this.form.img,
           img2: this.form.img2,
-          intro: this.form.intro,
+          title: this.form.title,
           price: this.form.price,
         }),
         headers: { "Content-Type": "application/json;charset=UTF-8" },
@@ -193,6 +219,30 @@ export default {
           }
         });
       }
+    },
+    deleteks(data){
+      axios({
+        method: "get",
+        url: "http://localhost:8081/models/delete",
+        params: {
+          id: data.id,
+        },
+      });
+      setTimeout(() => {
+        this.dialogVisible1=false
+        this.getData();
+      });
+    },
+    editks(data){
+      axios({
+        method: "post",
+        url: "http://localhost:8081/models/modify",
+        data,
+      });
+      setTimeout(() => {
+        this.dialogVisible1=false
+        this.getData();
+      });
     },
     delete() {
       axios({
@@ -213,7 +263,7 @@ export default {
         params: {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum,
-          search: this.formInline.intro,
+          search: this.formInline.title,
         },
       }).then((res) => {
         console.log(res);
@@ -226,6 +276,22 @@ export default {
       this.form = row;
       this.type = "edit";
       console.log(index, row);
+    },
+    openks(index,row){
+      
+      axios({
+        method: "get",
+        url: "http://localhost:8081/models/search",
+        params: {
+         goodsId:row.id
+        },
+      }).then((res) => {
+        this.dialogVisible1 = true;
+        this.title1 = "编辑";
+        console.log(res);
+       this.form1=res.data
+      });
+      // this.form1=
     },
     deleteGoods(index, row) {
       this.form = row;

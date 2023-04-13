@@ -20,7 +20,7 @@ export default {
   name: 'App',
   data () {
     return {
-      excludeRoutes: ['HomeIndex', 'MyAddress', 'AddAddress', 'MyOrder', 'MyShoppingCart'],
+      excludeRoutes: ['HomeIndex', 'MyInfo', 'MyOrder', 'MyShoppingCart'],
       list:['Login2','Index2','goods','users']
     };
   },

@@ -13,9 +13,9 @@
             <div class="add-info-img">
               <img :src="newShoppingCart.package.img" alt="">
             </div>
-            <div class="add-info-intro">
-              <p>{{newShoppingCart.title}} {{newShoppingCart.package.intro}}...</p>
-              <p class="add-info-intro-detail">颜色：{{newShoppingCart.package.intro}}/ 数量：{{newShoppingCart.count}}</p>
+            <div class="add-info-title">
+              <p>{{newShoppingCart.title}} {{newShoppingCart.package.title}}...</p>
+              <p class="add-info-title-detail">颜色：{{newShoppingCart.package.title}}/ 数量：{{newShoppingCart.count}}</p>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="other-buy-detail-box">
             <div class="other-buy-title">
               <a href="item_detail.html">
-                <p>{{item.intro}}</p>
+                <p>{{item.title}}</p>
               </a>
             </div>
             <div class="other-buy-price">
@@ -123,12 +123,12 @@ export default {
 .add-info-img img{
   width: 100%;
 }
-.add-info-intro{
+.add-info-title{
   display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.add-info-intro-detail{
+.add-info-title-detail{
   font-size: 12px;
   color: #999999;
 }

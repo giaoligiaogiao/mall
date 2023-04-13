@@ -32,7 +32,7 @@
               <router-link to="/goodsList"><img :src="item.img"></router-link>
             </div>
             <div class="seckill-item-info">
-              <p>{{item.intro}}</p>
+              <p>{{item.title}}</p>
               <p>
                 <span class="seckill-price text-danger"><Icon type="social-yen"></Icon>{{item.price}}</span>
                 <span class="seckill-old-price"><s>{{item.realPrice}}</s></span>
@@ -62,7 +62,7 @@
               <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
                 <div class="item-four-detail-text">
                   <p class="pt_bi_tit">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
+                  <p class="pt_bi_promo">{{subItem.title}}</p>
                 </div>
                 <div class="item-four-detail-img">
                   <router-link to="/goodsList">
@@ -100,7 +100,7 @@
               <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
                 <div class="item-four-detail-text">
                   <p class="pt_bi_tit pt_bi_tit-eat">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
+                  <p class="pt_bi_promo">{{subItem.title}}</p>
                 </div>
                 <div class="item-four-detail-img">
                   <router-link to="/goodsList">

@@ -51,7 +51,7 @@ import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 import Distpicker from 'v-distpicker';
 export default {
-  name: 'MyAddress',
+  name: 'MyInfo',
   data () {
     return {
       modal: false,

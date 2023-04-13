@@ -45,7 +45,7 @@ export default {
       //   params: {
       //     pageSize: this.page.pageSize,
       //     pageNum: this.page.pageNum,
-      //     search:this.formInline.intro,
+      //     search:this.formInline.title,
       //   },
       // }).then((res) => {
       //   console.log(res)

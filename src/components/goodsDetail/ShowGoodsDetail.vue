@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="item-intro-show">
-      <div class="item-intro-recommend">
+    <div class="item-title-show">
+      <div class="item-title-recommend">
         <div class="item-recommend-title">
           <p>店铺热销</p>
         </div>
-        <div class="item-intro-recommend-column">
+        <div class="item-title-recommend-column">
           <div class="item-recommend-column" v-for="(item, index) in goodsInfo.hot" :key="index">
             <div class="item-recommend-img">
               <img :src="item.img" alt="">
             </div>
-            <div class="item-recommend-intro">
+            <div class="item-recommend-title">
               <span>
                 <span class="item-recommend-top-num">{{index + 1}}</span> 热销{{item.sale}}件</span>
               <span class="item-recommend-price">￥{{item.price.toFixed(2)}}</span>
@@ -18,14 +18,14 @@
           </div>
         </div>
       </div>
-      <div class="item-intro-detail" ref="itemIntroDetail">
-        <div class="item-intro-nav item-tabs">
+      <div class="item-title-detail" ref="itemIntroDetail">
+        <div class="item-title-nav item-tabs">
           <Tabs>
             <TabPane label="商品介绍">
               <div class="remarks-title">
                 <span>商品介绍</span>
               </div>
-              <div class="item-intro-img" ref="itemIntroGoods">
+              <div class="item-title-img" ref="itemIntroGoods">
                 <img :src="item" alt="" v-for="(item,index) in goodsInfo.goodsDetail" :key="index">
               </div>
             </TabPane>
@@ -138,19 +138,19 @@ export default {
 
 <style scoped>
 /***************商品详情介绍和推荐侧边栏开始***************/
-.item-intro-show{
+.item-title-show{
   width: 80%;
   margin: 15px auto;
   display: flex;
   flex-direction: row;
   background-color: #fff;
 }
-.item-intro-recommend{
+.item-title-recommend{
   width: 200px;
   display: flex;
   flex-direction: column;
 }
-.item-intro-recommend-column{
+.item-title-recommend-column{
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 5px #999;
@@ -168,7 +168,7 @@ export default {
 .item-recommend-column{
   margin-top: 15px;
 }
-.item-recommend-intro{
+.item-recommend-title{
   padding: 5px 15px;
   display: flex;
   flex-direction: row;
@@ -196,22 +196,22 @@ export default {
   color: #E4393C;
   font-weight: bolder;
 }
-.item-intro-detail{
+.item-title-detail{
   margin-left: 30px;
   width: calc(80vw - 300px);
 }
-.item-intro-nav{
+.item-title-nav{
   width: 100%;
   height: 38px;
   background-color: #F7F7F7;
   border-bottom: 1px solid #E4393C;
 }
-.item-intro-nav ul{
+.item-title-nav ul{
   margin: 0px;
   padding: 0px;
   list-style: none;
 }
-.item-intro-nav li{
+.item-title-nav li{
   float: left;
   height: 100%;
   width: 120px;
@@ -219,14 +219,14 @@ export default {
   text-align: center;
   color: #E4393C;
 }
-.item-intro-nav li:first-child{
+.item-title-nav li:first-child{
   background-color: #E4393C;
   color: #fff;
 }
-.item-intro-img{
+.item-title-img{
   width: 100%;
 }
-.item-intro-img img{
+.item-title-img img{
   width: 100%;
 }
 /************* 商品参数 *************/
