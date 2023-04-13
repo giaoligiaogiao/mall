@@ -65,18 +65,18 @@
                   <span>中评({{goodsInfo.remarks.remarksNumDetail[2]}})</span>
                   <span>差评({{goodsInfo.remarks.remarksNumDetail[3]}})</span>
                 </div>
-                <div class="remarks-box" v-for="(item,index) in goodsInfo.remarks.detail" :key="index">
+                <div class="remarks-box" v-for="(item,index) in list" :key="index">
                   <div class="remarks-user">
                     <Avatar icon="person" />
                     <span class="remarks-user-name">{{item.username}}</span>
                   </div>
                   <div class="remarks-content-box">
                     <p>
-                      <Rate disabled :value="item.values" allow-half class="remarks-star"></Rate>
+                      <Rate disabled :value="item.score" allow-half class="remarks-star"></Rate>
                     </p>
-                    <p class="remarks-content">{{item.content}}</p>
+                    <p class="remarks-content">{{item.appraise}}</p>
                     <p class="remarks-sub">
-                      <span class="remarks-item">{{item.goods}}</span>
+                      <span class="remarks-item">{{item.title}}</span>
                       <span class="remarks-time">{{item.time}}</span>
                     </p>
                   </div>
@@ -101,13 +101,35 @@ export default {
   name: 'ShowGoodsDetail',
   data () {
     return {
-      tagsColor: [ 'blue', 'green', 'red', 'yellow' ]
+      tagsColor: [ 'blue', 'green', 'red', 'yellow' ],
+      list:[]
     };
   },
   computed: {
     ...mapState(['goodsInfo'])
   },
+   props:{
+    good:{
+      type:Object,
+    default:{}
+    }
+    
+  },
+  mounted(){
+    this.getList()
+  },
   methods: {
+    getList(){
+       axios({
+        method: "get",
+        url: "http://localhost:8081/goods",
+        params: {
+          goods_id: this.good.goods_id
+        },
+      }).then((res) => {
+        this.list=[].concat(res.data)
+      })
+    },
     changeHeight () {
       let heightCss = window.getComputedStyle(this.$refs.itemIntroGoods).height;
       console.log(heightCss);

@@ -13,7 +13,7 @@
     <!-- 商品信息展示 -->
     <ShowGoods :good="good"></ShowGoods>
     <!-- 商品详细展示 -->
-    <ShowGoodsDetail></ShowGoodsDetail>
+    <ShowGoodsDetail :good="good"></ShowGoodsDetail>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
