@@ -17,9 +17,14 @@
           <el-button
             size="mini"
             type="primary"
+            :disabled="scope.row.appraise"
             @click="handleRate(scope.$index, scope.row)"
-            >评价</el-button
-          >
+            >评价</el-button>
+            <el-button
+            size="mini"
+            type="primary"
+            @click="handleWatch(scope.$index, scope.row)"
+            >查看评价</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,7 +45,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submit()"
+        <el-button type="primary" v-if="form.order_id" @click="submit()"
           >确 定</el-button
         >
       </span>
@@ -94,19 +99,37 @@ export default {
     this.getData();
   },
   methods: {
-    handleRate() {
+    handleRate(i,row) {
+      this.form.order_id=row.order_id
       this.dialogVisible=true
     },
+    handleWatch(i,row){
+      this.dialogVisible=true
+      this.form.comments=row.appraise
+      this.form.rate=row.score
+    },  
     handleClose(){
       this.form.comments=''
       this.form.rate=0
     },
-    submit(){
+    submit(data){
       if(!this.form.comments||!this.form.rate){
         this.$message('请完成商品的评价填写');
+        return 
       }
       else{
-
+         axios({
+          method: "post",
+          url: "http://localhost:8081/order/addComment",
+          data:{
+            order_id:this.form.order_id,
+            appraise:this.form.comments,
+            score:this.form.rate
+          }
+        }).then((res) => {
+          // this.ordersList=res.data;
+          this.dialogVisible=false
+        });
       }
     },
     getData() {
